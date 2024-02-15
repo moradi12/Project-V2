@@ -44,10 +44,6 @@ public class ResultSetUtils {
         return new Coupon(id, companyId, category, title, description, startDate, endDate, amount, price, image);
     }
 
-
-
-
-
     public static Customer mapResultSetToCustomer(ResultSet resultSet) throws SQLException {
         int id = resultSet.getInt("id");
         String firstName = resultSet.getString("firstName");

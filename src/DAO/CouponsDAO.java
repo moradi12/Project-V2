@@ -22,7 +22,9 @@ public interface CouponsDAO {
     List<Coupon> getAllCouponsByCategoryAndCompany(Category category, int companyId);
 
     List<Coupon> getAllCouponsUpToPriceAndCompany(double price, int companyId);
-    List<Coupon> getExpiredCoupons(LocalDate currentDate);
+
+
+    //List<Coupon> getExpiredCoupons(LocalDate currentDate);
 
 
 

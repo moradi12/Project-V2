@@ -163,11 +163,22 @@ public class CouponsDBDAO implements CouponsDAO {
 
     @Override
     public List<Coupon> getAllCouponsUpToPriceAndCompany(double price, int companyId) {
-        return null;
-    }
+        List<Coupon> coupons = new ArrayList<>();
+        String sql = Sql.SqlCommands.coupons.getAllCouponsUpToPriceAndCompany;
+        Map<Integer, Object> params = new HashMap<>();
+        params.put(1, price);
+        params.put(2, companyId);
 
-    @Override
-    public List<Coupon> getExpiredCoupons(LocalDate currentDate) {
-        return null;
-    }
+        try {
+            ResultSet resultSet = DButils.runQueryForResult(sql, params);
+            while (resultSet.next()) {
+                Coupon coupon = ResultSetUtils.mapResultSetToCoupon(resultSet);
+                coupons.add(coupon);
+            }
+        } catch (SQLException e) {
+            throw new DatabaseQueryException("Error occurred while retrieving coupons up to price and company", e);
+        }
+
+        return coupons;    }
+
 }

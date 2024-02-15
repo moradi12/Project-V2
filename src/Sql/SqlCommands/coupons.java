@@ -22,22 +22,20 @@ public class coupons {
             "(`COMPANY_ID`, `CATEGORY_ID`, `TITLE`, `DESCRIPTION`, `START_DATE`, `AMOUNT`, `PRICE`, `IMAGE`) " +
             "VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
 
-    // Get all coupons
     public static final String getAllCoupons = "SELECT * FROM `couponnnn`.`coupons`";
 
-    // Get coupon by ID
     public static final String getCouponById = "SELECT * FROM `couponnnn`.`coupons` WHERE ID=?";
-
-    // Get one coupon by title
     public static final String getOneCoupon = "SELECT * FROM `couponnnn`.`coupons` WHERE TITLE=? LIMIT 1";
-
     public static final String updateCoupon = "UPDATE `couponnnn`.`coupons` SET COLUMN_NAME = ? WHERE ID = ?";
-
     public static final String deleteCoupon = "DELETE FROM `couponnnn`.`coupons` WHERE ID = ?";
-    public static final String DELETECOUPON_PURCHASE_HISTORY_QUERY =
-            "DELETE FROM `coupon_purchases` WHERE `coupon_id` = ?";
-
     public static final String deleteCouponPurchase = "DELETE FROM `couponnnn`.`purchases` WHERE COUPON_ID = ?";
-
     public static final String getAllCouponsByCompany = "SELECT * FROM `couponnnn`.`coupons` WHERE COMPANY_ID = ?";
-    public static final String deleteCouponPurchaseHistory = "DELETE FROM `couponnnn`.`purchase_history` WHERE COUPON_ID = ?";}
+    public static final String deleteCouponPurchaseHistory = "DELETE FROM `couponnnn`.`purchase_history` WHERE COUPON_ID = ?";
+    public static final String getAllCouponsUpToPriceAndCompany = "SELECT * FROM `couponnnn`.`coupons` WHERE COMPANY_ID = ? AND PRICE <= ?;";
+    public static final String getExpiredCouponsQuery = "SELECT * FROM coupons WHERE expiration_date <= ? AND price <= ?";
+
+
+
+
+
+}

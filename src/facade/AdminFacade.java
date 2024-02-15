@@ -15,6 +15,7 @@ public class AdminFacade extends ClientFacade {
         return false;
     }
     public void addCompany(Company company){
+
     }
 
     public void updateCompany(Company company){

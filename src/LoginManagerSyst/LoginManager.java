@@ -1,5 +1,10 @@
 package LoginManagerSyst;
 import Facade.ClientFacade;
+import beans.ClientType;
+import facade.AdminFacade;
+import facade.CompanyFacade;
+import facade.CustomerFacade;
+
 import javax.security.auth.login.LoginException;
 import java.sql.SQLException;
 public class LoginManager {
@@ -22,39 +27,39 @@ public class LoginManager {
         }
         return instance;
     }
-//    public ClientFacade login(String email, String password, ClientType clientType) throws LoginException, SQLException, IllegalArgumentException {
-//        if (email == null || password == null) {
-//            throw new IllegalArgumentException("Email and password cannot be null");
-//        }
-//
-//        /**
-//         * Logs in a client based on the provided email, password, and client type.
-//         * @param email The email of the client.
-//         * @param password The password of the client.
-//         * @param clientType The type of the client (company, customer, or administrator).
-//         * @return The facade corresponding to the logged-in client.
-//
-//         */
-//        ClientFacade facade;
-//        switch (clientType) {
-//            case company:
-//                facade = new CompanyFacade(email, password);
-//                break;
-//            case customer:
-//                facade = new CustomerFacade(email,password);
-//                break;
-//            case administrator:
-//                if (!email.equals("admin@admin.com") || !password.equals("admin")) {
-//                    throw new LoginException("Invalid email or password for admin");
-//                }
-//                facade = new AdminFacade(email, password);
-//                break;
-//            default:
-//                throw new IllegalArgumentException("Invalid client type: " + clientType);
-//        }
-//        return facade;
-//    }
-//    public void logout(ClientFacade facade) {
-//        facade.logout();
-//    }
+    public ClientFacade login(String email, String password, ClientType clientType) throws LoginException, SQLException, IllegalArgumentException {
+        if (email == null || password == null) {
+            throw new IllegalArgumentException("Email and password cannot be null");
+        }
+
+        /**
+         * Logs in a client based on the provided email, password, and client type.
+         * @param email The email of the client.
+         * @param password The password of the client.
+         * @param clientType The type of the client (company, customer, or administrator).
+         * @return The facade corresponding to the logged-in client.
+
+         */
+        ClientFacade facade;
+        switch (clientType) {
+            case company:
+                facade = new CompanyFacade(email, password);
+                break;
+            case customer:
+                facade = new CustomerFacade(email,password);
+                break;
+            case administrator:
+                if (!email.equals("admin@admin.com") || !password.equals("admin")) {
+                    throw new LoginException("Invalid email or password for admin");
+                }
+                facade = new AdminFacade(email, password);
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid client type: " + clientType);
+        }
+        return facade;
+    }
+    public void logout(ClientFacade facade) {
+        facade.logout();
+    }
 }

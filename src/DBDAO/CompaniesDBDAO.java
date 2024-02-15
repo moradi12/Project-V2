@@ -5,7 +5,6 @@ import Sql.DButils;
 import Sql.SqlCommands.companies;
 import beans.Company;
 import exception.DatabaseQueryException;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,13 +16,11 @@ public class CompaniesDBDAO implements CompaniesDAO {
     @Override
     public boolean isCompanyExists(String email, String password) {
         Map<Integer, Object> params = Map.of(1, email, 2, password);
-
         try (ResultSet resultSet = DButils.runQueryForResult(companies.IsCompanyExist, params)) {
             return resultSet.next();
         } catch (SQLException e) {
             throw new DatabaseQueryException("Failed to check if company exists in the database", e);
         }
-
     }
 
     @Override
@@ -70,7 +67,7 @@ public class CompaniesDBDAO implements CompaniesDAO {
     public List<Company> getAllCompanies() {
         List<Company> companies = new ArrayList<>();
         try {
-            ResultSet resultSet = DButils.runQueryForResult(Sql.SqlCommands.companies.getAllCompanies, null);
+            ResultSet resultSet = DButils.runQueryForResult(Sql.SqlCommands.companies.getAllCompanies,null);
             while (resultSet.next()) {
                 Company company = ResultSetUtils.mapResultSetToCompany(resultSet);
                 companies.add(company);
@@ -99,10 +96,11 @@ public class CompaniesDBDAO implements CompaniesDAO {
     }
 
 
-
     @Override
     public Company getCompanyDetails(String email) {
         Map<Integer, Object> params = Map.of(1, email);
+////        /// delete the ((( make it {{{////
+
 
         try (ResultSet resultSet = DButils.runQueryForResult(companies.getCompanyByEmail, params)) {
             if (resultSet.next()) {
@@ -111,7 +109,7 @@ public class CompaniesDBDAO implements CompaniesDAO {
                 String password = resultSet.getString("PASSWORD");
 
                 ////// NULL or not ?!?!?!?!?!?!?!!?!?!?!??!?!!?
-
+                  //join add quarry
                 return new Company(id, name, email, password, null);
             } else {
                 System.out.println("Company with email " + email + " does not exist.");
