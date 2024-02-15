@@ -31,7 +31,13 @@ public class coupons {
     // Get one coupon by title
     public static final String getOneCoupon = "SELECT * FROM `couponnnn`.`coupons` WHERE TITLE=? LIMIT 1";
 
-    // Delete coupon purchase history by coupon ID
+    public static final String updateCoupon = "UPDATE `couponnnn`.`coupons` SET COLUMN_NAME = ? WHERE ID = ?";
+
+    public static final String deleteCoupon = "DELETE FROM `couponnnn`.`coupons` WHERE ID = ?";
     public static final String DELETECOUPON_PURCHASE_HISTORY_QUERY =
             "DELETE FROM `coupon_purchases` WHERE `coupon_id` = ?";
-}
+
+    public static final String deleteCouponPurchase = "DELETE FROM `couponnnn`.`purchases` WHERE COUPON_ID = ?";
+
+    public static final String getAllCouponsByCompany = "SELECT * FROM `couponnnn`.`coupons` WHERE COMPANY_ID = ?";
+    public static final String deleteCouponPurchaseHistory = "DELETE FROM `couponnnn`.`purchase_history` WHERE COUPON_ID = ?";}
