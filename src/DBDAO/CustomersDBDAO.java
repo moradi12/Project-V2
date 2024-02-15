@@ -12,12 +12,25 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static Sql.SqlCommands.Customer_sql.updateCustomer;
-
 public class CustomersDBDAO implements CustomersDAO {
+
     @Override
     public boolean isCustomerExists(String email, String password) {
-        return false;
+        String sql = Customer_sql.getCustomerByEmail;
+        Map<Integer, Object> params = new HashMap<>();
+        params.put(1, email);
+
+        try (ResultSet resultSet = DButils.runQueryForResult(sql, params)) {
+            if (resultSet.next()) {
+                String storedPassword = resultSet.getString("PASSWORD");
+                return storedPassword.equals(password);
+            } else {
+                return false;
+            }
+        } catch (SQLException e) {
+            System.out.println("Error checking if customer exists: " + e.getMessage());
+            return false;
+        }
     }
 
     @Override
@@ -51,7 +64,6 @@ public class CustomersDBDAO implements CustomersDAO {
         System.out.println("Customer updated successfully!");
     }
 
-
     @Override
     public void deleteCustomer(int customerId) {
         String sql = Customer_sql.deleteCustomer;
@@ -66,53 +78,36 @@ public class CustomersDBDAO implements CustomersDAO {
         }
     }
 
-
     @Override
     public List<Customer> getAllCustomers() {
         String sql = Customer_sql.getAllCustomers;
-        ResultSet resultSet = DButils.runQueryForResult(sql, new HashMap<>());
-
         List<Customer> customers = new ArrayList<>();
-        try {
+
+        try (ResultSet resultSet = DButils.runQueryForResult(sql, new HashMap<>())) {
             while (resultSet.next()) {
-                Customer customer = new Customer(
-                        resultSet.getInt("ID"),
-                        resultSet.getString("FIRST_NAME"),
-                        resultSet.getString("LAST_NAME"),
-                        resultSet.getString("EMAIL"),
-                        resultSet.getString("PASSWORD")
-                );
-                customers.add(customer);
+                customers.add(ResultSetUtils.mapResultSetToCustomer(resultSet));
             }
         } catch (SQLException e) {
             System.out.println("Error retrieving customers: " + e.getMessage());
         }
         return customers;
-        }
-
+    }
 
     @Override
     public Customer getOneCustomer(int customerId) {
-        String sql = Customer_sql.getAllCustomers;
+        String sql = Customer_sql.getCustomer;
         Map<Integer, Object> params = new HashMap<>();
-
-        ResultSet resultSet = DButils.runQueryForResult(sql, params);
-
-        List<Customer> customers = new ArrayList<>();
-        try {
-            while (resultSet.next()) {
-                Customer customer = new Customer(
-                        resultSet.getInt("ID"),
-                        resultSet.getString("FIRST_NAME"),
-                        resultSet.getString("LAST_NAME"),
-                        resultSet.getString("EMAIL"),
-                        resultSet.getString("PASSWORD")
-                );
-                customers.add(customer);
+        params.put(1, customerId);
+        try (ResultSet resultSet = DButils.runQueryForResult(sql, params)) {
+            if (resultSet.next()) {
+                return ResultSetUtils.mapResultSetToCustomer(resultSet);
+            } else {
+                System.out.println("Customer with ID " + customerId + " not found.");
+                return null;
             }
         } catch (SQLException e) {
-            System.out.println("Error retrieving customers: " + e.getMessage());
+            System.out.println("Error retrieving customer: " + e.getMessage());
+            return null;
         }
-        return (Customer) customers;
     }
 }

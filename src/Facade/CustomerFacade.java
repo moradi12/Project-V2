@@ -1,6 +1,6 @@
-package facade;
-public class CompanyFacade extends Facade.ClientFacade {
-    public CompanyFacade(String email, String password) {
+package Facade;
+public class CustomerFacade extends Facade.ClientFacade {
+    public CustomerFacade(String email, String password) {
         super(email, password);
     }
 

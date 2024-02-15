@@ -29,11 +29,11 @@ public abstract class ClientFacade {
         companiesDAO = new CompaniesDBDAO();
         couponsDAO = new CouponsDBDAO();
         setLogged(login(email, password));
-            if (isLogged()) {
-                loginSuccessMessage();
-            } else {
-                System.out.println("Login failed: Invalid credentials.");
-            }
+        if (isLogged()) {
+            loginSuccessMessage();
+        } else {
+            System.out.println("Login failed: Invalid credentials.");
+        }
 
     }
     /**

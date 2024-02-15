@@ -158,7 +158,23 @@ public class CouponsDBDAO implements CouponsDAO {
 
     @Override
     public List<Coupon> getAllCouponsByCategoryAndCompany(Category category, int companyId) {
-        return null;
+        List<Coupon> coupons = new ArrayList<>();
+        String sql = Sql.SqlCommands.coupons.getAllCouponsByCategoryAndCompany;
+        Map<Integer, Object> params = new HashMap<>();
+        params.put(1, category.ordinal() + 1);
+        params.put(2, companyId);
+
+        try {
+            ResultSet resultSet = DButils.runQueryForResult(sql, params);
+            while (resultSet.next()) {
+                Coupon coupon = ResultSetUtils.mapResultSetToCoupon(resultSet);
+                coupons.add(coupon);
+            }
+        } catch (SQLException e) {
+            throw new DatabaseQueryException("Error occurred while retrieving coupons by category and company", e);
+        }
+
+        return coupons;
     }
 
     @Override
@@ -179,6 +195,7 @@ public class CouponsDBDAO implements CouponsDAO {
             throw new DatabaseQueryException("Error occurred while retrieving coupons up to price and company", e);
         }
 
-        return coupons;    }
+        return coupons;
+    }
 
 }

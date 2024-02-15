@@ -1,15 +1,14 @@
 package LoginManagerSyst;
 import Facade.ClientFacade;
 import beans.ClientType;
-import facade.AdminFacade;
-import facade.CompanyFacade;
-import facade.CustomerFacade;
+import Facade.AdminFacade;
+import Facade.CompanyFacade;
+import Facade.CustomerFacade;
 
 import javax.security.auth.login.LoginException;
 import java.sql.SQLException;
 public class LoginManager {
     private static volatile LoginManager instance = null;
-
 
     /**
      * Manages login and logout operations for different types of clients.

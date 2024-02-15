@@ -1,6 +1,5 @@
-package facade;
+package Facade;
 
-import Facade.ClientFacade;
 import beans.Company;
 import beans.Customer;
 import java.util.List;
@@ -26,11 +25,11 @@ public class AdminFacade extends ClientFacade {
     }
 
     public List<Company> getAllCompanies(){
-    return  null;
+        return  null;
     }
 
     public Company getOneCompany(int companyId){
-    return  null;
+        return  null;
     }
 
     public void addCustomer(Customer customer){

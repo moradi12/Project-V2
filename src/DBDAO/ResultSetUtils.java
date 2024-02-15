@@ -51,7 +51,6 @@ public class ResultSetUtils {
         String email = resultSet.getString("email");
         String password = resultSet.getString("password");
         List<Coupon> coupons = new ArrayList<>();
-
         return new Customer(id, firstName, lastName, email, password, coupons);
     }
 }
