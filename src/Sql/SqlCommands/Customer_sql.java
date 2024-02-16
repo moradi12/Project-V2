@@ -18,6 +18,11 @@ public class Customer_sql {
             "(`FIRST_NAME`, `LAST_NAME`, `EMAIL`, `PASSWORD`) " +
             "VALUES (?, ?, ?, ?);";
 
+    public static final String addCustomerCouponRelation = "INSERT INTO `couponnnn`.`customers_vs_coupons` " +
+            "(`CUSTOMER_ID`, `COUPON_ID`) " +
+            "VALUES (?, ?);";
+
+
     // Update an existing customer
     public static final String updateCustomer = "UPDATE customers SET first_name = ?, last_name = ?, email = ?, password = ? WHERE id = ?";
 
@@ -28,9 +33,9 @@ public class Customer_sql {
     public static final String getCustomerByEmail = "SELECT * FROM `couponnnn`.`customers` WHERE EMAIL=?";
 
     public static final String getCustomer = "SELECT * FROM `couponnnn`.`customers` WHERE ID=?";
-    public static final String addCustomerCouponRelation = "INSERT INTO `couponnnn`.`customers_vs_coupons` " +
-            "(`CUSTOMER_ID`, `COUPON_ID`) " +
-            "VALUES (?, ?);";
+//    public static final String addCustomerCouponRelation = "INSERT INTO `coupons`.`customers_vs_coupons` " +
+//            "(`CUSTOMER_ID`, `COUPON_ID`) " +
+//            "VALUES (?, ?);";
 
     // Get coupons of a customer
     public static final String getCouponsOfCustomer = "SELECT * FROM `couponnnn`.`coupons` " +

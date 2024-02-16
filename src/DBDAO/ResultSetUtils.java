@@ -21,11 +21,9 @@ public class ResultSetUtils {
         String name = resultSet.getString("NAME");
         String email = resultSet.getString("EMAIL");
         String password = resultSet.getString("PASSWORD");
-        List<Coupon> coupons = new ArrayList<>();
-        while (resultSet.next()) {
-            int couponId = resultSet.getInt("COUPON_ID");
-        }
-        return new Company(id, name, email, password, coupons);
+        CouponsDBDAO couponsDBDAO = new CouponsDBDAO();
+        List<Coupon> list = couponsDBDAO.getAllCouponsByCompany(id);
+        return new Company(id, name, email, password, list);
     }
 
 

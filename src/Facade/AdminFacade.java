@@ -13,6 +13,9 @@ public class AdminFacade extends ClientFacade {
     public boolean login(String email, String password) {
         return false;
     }
+
+
+
     public void addCompany(Company company){
 
     }
@@ -44,6 +47,11 @@ public class AdminFacade extends ClientFacade {
     }
 
     public List<Customer> getAllCustomers() {
+        return null;
+    }
+
+    public Customer getOneCustomer(int customerID){
+
         return null;
     }
 

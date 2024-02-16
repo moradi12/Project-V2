@@ -9,7 +9,6 @@ import exception.DatabaseQueryException;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -77,9 +76,20 @@ public class CouponsDBDAO implements CouponsDAO {
 
     @Override
     public List<Coupon> getAllCoupons() {
+        List<Coupon> coupons = new ArrayList<>();
+        String sql = Sql.SqlCommands.coupons.getAllCoupons;
 
+        try {
+            ResultSet resultSet = DButils.runQueryForResult(sql, new HashMap<>());
+            while (resultSet.next()) {
+                Coupon coupon = ResultSetUtils.mapResultSetToCoupon(resultSet);
+                coupons.add(coupon);
+            }
+        } catch (SQLException e) {
+            throw new DatabaseQueryException("Error occurred while retrieving all coupons", e);
+        }
 
-        return null;
+        return coupons;
     }
 
     @Override
@@ -103,7 +113,18 @@ public class CouponsDBDAO implements CouponsDAO {
 
     @Override
     public void addCouponPurchase(int customerID, int couponID) {
+        String sql = coupons.addCouponPurchase;
+        Map<Integer, Object> params = new HashMap<>();
+        params.put(1, customerID);
+        params.put(2, couponID);
 
+        boolean success = DButils.runQuery(sql, params);
+
+        if (success) {
+            System.out.println("Coupon purchase added successfully.");
+        } else {
+            System.out.println("Failed to add coupon purchase.");
+        }
     }
 
     @Override
@@ -154,7 +175,6 @@ public class CouponsDBDAO implements CouponsDAO {
         }
         return coupons;
     }
-
 
     @Override
     public List<Coupon> getAllCouponsByCategoryAndCompany(Category category, int companyId) {
