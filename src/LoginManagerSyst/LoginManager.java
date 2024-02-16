@@ -1,9 +1,9 @@
 package LoginManagerSyst;
 
 import Facade.ClientFacade;
+import Facade.CompanyFacade;
 import beans.ClientType;
 import Facade.AdminFacade;
-import Facade.CompanyFacade;
 import Facade.CustomerFacade;
 import exception.AdminException;
 import javax.security.auth.login.LoginException;

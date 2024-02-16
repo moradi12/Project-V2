@@ -1,8 +1,10 @@
 package exception;
 
-public class InvalidCredentials extends Exception {
-    public InvalidCredentials(String message) {
+public class InvalidCredentialsException extends Exception {
+    public InvalidCredentialsException(String message) {
         super(message);
         System.out.println("Invalid credentials exception occurred: " + message);
+
     }
+
 }

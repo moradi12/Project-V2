@@ -23,7 +23,6 @@ public abstract class ClientFacade {
      * @param password The password of the client.
      */
 
-
     public ClientFacade(String email, String password) {
         customersDAO = new CustomersDBDAO();
         companiesDAO = new CompaniesDBDAO();
@@ -34,6 +33,7 @@ public abstract class ClientFacade {
         } else {
             System.out.println("Login failed: Invalid credentials.");
         }
+
 
     }
     /**

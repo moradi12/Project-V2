@@ -17,6 +17,11 @@ public class companies {
             "(`NAME`, `EMAIL`, `PASSWORD`) " +
             "VALUES (?, ?, ?);";
 
+
+
+
+
+
     public static final String getAllCompanies = "SELECT * FROM `couponnnn`.`companies`";
 
     public static final String getCompanyByEmailAndPassword = "SELECT * FROM `couponnnn`.`companies` " +
