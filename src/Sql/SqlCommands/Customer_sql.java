@@ -18,6 +18,11 @@ public class Customer_sql {
             "(`FIRST_NAME`, `LAST_NAME`, `EMAIL`, `PASSWORD`) " +
             "VALUES (?, ?, ?, ?);";
 
+    public static final String addCustomerCouponRelation = "INSERT INTO `couponnnn`.`customers_vs_coupons` " +
+            "(`CUSTOMER_ID`, `COUPON_ID`) " +
+            "VALUES (?, ?);";
+
+
     // Update an existing customer
     public static final String updateCustomer = "UPDATE customers SET first_name = ?, last_name = ?, email = ?, password = ? WHERE id = ?";
 
@@ -28,15 +33,14 @@ public class Customer_sql {
     public static final String getCustomerByEmail = "SELECT * FROM `couponnnn`.`customers` WHERE EMAIL=?";
 
     public static final String getCustomer = "SELECT * FROM `couponnnn`.`customers` WHERE ID=?";
-    public static final String addCustomerCouponRelation = "INSERT INTO `couponnnn`.`customers_vs_coupons` " +
-            "(`CUSTOMER_ID`, `COUPON_ID`) " +
-            "VALUES (?, ?);";
 
-    // Get coupons of a customer
+
     public static final String getCouponsOfCustomer = "SELECT * FROM `couponnnn`.`coupons` " +
             "JOIN `couponnnn`.`customers_vs_coupons` ON `coupons`.`ID` = `customers_vs_coupons`.`COUPON_ID` " +
             "WHERE `customers_vs_coupons`.`CUSTOMER_ID` = ?";
 
+
+    public static final String isCustomerExist = "SELECT EXISTS(" + "SELECT 1 FROM `couponnnn`.`customers` " + "WHERE ID=? OR EMAIL=?" ;
 
     public static final String deleteCustomer = "DELETE FROM `couponnnn`.`customers` WHERE ID = ?";
     public static final String buyCupon = "INSERT INTO `couponnnn`.`customer_coupon` (`CUSTOMER_ID`, `COUPON_ID`) VALUES (?, ?)";}

@@ -21,9 +21,12 @@ public class coupons {
     public static final String addCoupon = "INSERT INTO `couponnnn`.`coupons` " +
             "(`COMPANY_ID`, `CATEGORY_ID`, `TITLE`, `DESCRIPTION`, `START_DATE`, `AMOUNT`, `PRICE`, `IMAGE`) " +
             "VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
-
+    public static final String addCouponPurchase = "INSERT INTO `coupon_purchases` " +
+            "(`CUSTOMER_ID`, `COUPON_ID`, `PURCHASE_DATE`, `AMOUNT_PAID`) " +
+            "VALUES (?, ?, ?, ?);";
     public static final String getAllCoupons = "SELECT * FROM `couponnnn`.`coupons`";
 
+    public static final String getExpiredCouponsQuery = "SELECT * FROM coupons WHERE expiration_date <= ? AND price <= ?";
     public static final String getCouponById = "SELECT * FROM `couponnnn`.`coupons` WHERE ID=?";
     public static final String getOneCoupon = "SELECT * FROM `couponnnn`.`coupons` WHERE TITLE=? LIMIT 1";
     public static final String updateCoupon = "UPDATE `couponnnn`.`coupons` SET COLUMN_NAME = ? WHERE ID = ?";
@@ -33,7 +36,6 @@ public class coupons {
     public static final String deleteCouponPurchaseHistory = "DELETE FROM `couponnnn`.`purchase_history` WHERE COUPON_ID = ?";
     public static final String getAllCouponsUpToPriceAndCompany = "SELECT * FROM `couponnnn`.`coupons` WHERE COMPANY_ID = ? AND PRICE <= ?;";
     public static final String getAllCouponsByCategoryAndCompany = "SELECT * FROM `couponnnn`.`coupons` WHERE CATEGORY_ID = ? AND COMPANY_ID = ?";
-    public static final String getExpiredCouponsQuery = "SELECT * FROM coupons WHERE expiration_date <= ? AND price <= ?";
 
 
 
