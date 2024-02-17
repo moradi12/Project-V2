@@ -13,8 +13,20 @@ import java.util.List;
 
 public class ResultSetUtils {
 
-    //Company//
+    /**  * A class containing methods to map ResultSet objects to Java beans */
+    /**
+     * Maps a ResultSet to a Company object
+     *
+     * @param resultSet The ResultSet containing company data
+     * @return The mapped Company object
+     */
 
+
+    /**
+     * Maps a ResultSet to a Company object
+     *
+     * @param resultSet The ResultSet containing company data
+     * @return The mapped Company object*/
     public static Company mapResultSetToCompany(ResultSet resultSet) throws SQLException {
 
         int id = resultSet.getInt("idCOMPANIES");
@@ -25,6 +37,13 @@ public class ResultSetUtils {
         List<Coupon> list = couponsDBDAO.getAllCouponsByCompany(id);
         return new Company(id, name, email, password, list);
     }
+
+    /**
+     * Maps a ResultSet to a Coupon object
+     *
+     * @param resultSet The ResultSet containing coupon data
+     * @return The mapped Coupon object
+     */
 
 
     public static Coupon mapResultSetToCoupon(ResultSet resultSet) throws SQLException {
@@ -41,6 +60,15 @@ public class ResultSetUtils {
 
         return new Coupon(id, companyId, category, title, description, startDate, endDate, amount, price, image);
     }
+
+
+    /**
+     * Maps a ResultSet to a Customer object
+     *
+     * @param resultSet The ResultSet containing customer data
+     * @return The mapped Customer object
+     */
+
 
     public static Customer mapResultSetToCustomer(ResultSet resultSet) throws SQLException {
         int id = resultSet.getInt("id");

@@ -93,23 +93,25 @@ public class CompaniesDBDAO implements CompaniesDAO {
             throw new DatabaseQueryException("Failed to retrieve company details from the database", e);
         }
     }
-    @Override
-    public Company getCompanyDetails(String email) {
-        Map<Integer, Object> params = Map.of(1, email);
-        try (ResultSet resultSet = DButils.runQueryForResult(companies.getCompanyByEmail, params)) {
-            if (resultSet.next()) {
-                int id = resultSet.getInt("idCOMPANIES");
-                String name = resultSet.getString("NAME");
-                String password = resultSet.getString("PASSWORD");
-                CouponsDBDAO couponsDBDAO = new CouponsDBDAO();
-                List<Coupon> list = couponsDBDAO.getAllCouponsByCompany(id);
-                return new Company(id, name, email, password, list);
-            } else {
-                System.out.println("Company with email " + email + " does not exist.");
-                return null;
-            }
-        } catch (SQLException e) {
-            throw new DatabaseQueryException("Failed to retrieve company details from the database", e);
-        }
-    }
+
+
+
+//    public Company getCompanyDetails(String email) {
+//        Map<Integer, Object> params = Map.of(1, email);
+//        try (ResultSet resultSet = DButils.runQueryForResult(companies.getCompanyByEmail, params)) {
+//            if (resultSet.next()) {
+//                int id = resultSet.getInt("idCOMPANIES");
+//                String name = resultSet.getString("NAME");
+//                String password = resultSet.getString("PASSWORD");
+//                CouponsDBDAO couponsDBDAO = new CouponsDBDAO();
+//                List<Coupon> list = couponsDBDAO.getAllCouponsByCompany(id);
+//                return new Company(id, name, email, password, list);
+//            } else {
+//                System.out.println("Company with email " + email + " does not exist.");
+//                return null;
+//            }
+//        } catch (SQLException e) {
+//            throw new DatabaseQueryException("Failed to retrieve company details from the database", e);
+//        }
+//    }
 }

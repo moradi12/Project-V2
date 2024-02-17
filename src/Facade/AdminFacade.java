@@ -24,7 +24,7 @@ public class AdminFacade extends ClientFacade {
 
     @Override
     public boolean login(String email, String password) {
-        UserType userType = new UserType(email, password);
+        Facade.UserType userType = new Facade.UserType(email, password);
         if (userType.getEmail().equals(DBmanager.SQL_USER) && userType.getPassword().equals(DBmanager.SQL_PASSWORD)) {
             System.out.println("Logged in as admin.");
             return true;
@@ -72,7 +72,7 @@ public class AdminFacade extends ClientFacade {
             throw new UserNotLogException("User is not logged in.");
         }
     }
-
+// todo finish the try!!!!!!!!!!!!!
     public List<Company> getAllCompanies() throws UserNotLogException {
         if (isLogged()) {
             try {

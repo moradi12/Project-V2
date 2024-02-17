@@ -9,6 +9,7 @@ import exception.DatabaseQueryException;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -60,11 +61,10 @@ public class CouponsDBDAO implements CouponsDAO {
 
 
     @Override
-    public void deleteCoupon(int couponID, int companyID) {
+    public void deleteCoupon(int couponID) {
         String sql = coupons.deleteCoupon;
         Map<Integer, Object> params = new HashMap<>();
         params.put(1, couponID);
-        params.put(2, companyID);
         boolean success = DButils.runQuery(sql, params);
         if (success) {
             System.out.println("Coupon deleted successfully.");
@@ -198,11 +198,11 @@ public class CouponsDBDAO implements CouponsDAO {
     }
 
     @Override
-    public List<Coupon> getAllCouponsUpToPriceAndCompany(double price, int companyId) {
+    public List<Coupon> getAllCouponsByMaxPrice(double MaxPrice, int companyId) {
         List<Coupon> coupons = new ArrayList<>();
         String sql = Sql.SqlCommands.coupons.getAllCouponsUpToPriceAndCompany;
         Map<Integer, Object> params = new HashMap<>();
-        params.put(1, price);
+        params.put(1, MaxPrice);
         params.put(2, companyId);
 
         try {
@@ -218,4 +218,33 @@ public class CouponsDBDAO implements CouponsDAO {
         return coupons;
     }
 
-}
+    @Override
+    public boolean isCouponExists(int couponID) {
+        String sql = Sql.SqlCommands.coupons.getCouponById;
+        Map<Integer, Object> params = new HashMap<>();
+        params.put(1, couponID);
+        try {
+            ResultSet resultSet = DButils.runQueryForResult(sql, params);
+            return resultSet.next();
+        } catch (SQLException e) {
+            throw new DatabaseQueryException("Error occurred while checking if coupon exists", e);
+        }
+    }
+
+    @Override
+    public void deleteExpiredCoupons(int companyID, LocalDate currentDate) {
+        String sql = Sql.SqlCommands.coupons.deleteExpiredCoupons;
+        Map<Integer, Object> params = new HashMap<>();
+        params.put(1, companyID);
+        params.put(2, currentDate);
+
+        boolean success = DButils.runQuery(sql, params);
+
+        if (success) {
+            System.out.println("Expired coupons deleted successfully for company with ID: " + companyID);
+        } else {
+            System.out.println("Failed to delete expired coupons for company with ID: " + companyID);
+        }
+    }}
+
+

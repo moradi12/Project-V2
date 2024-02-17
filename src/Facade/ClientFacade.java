@@ -12,6 +12,7 @@ import DBDAO.CustomersDBDAO;
 import java.sql.SQLException;
 
 public abstract class ClientFacade {
+
     protected CustomersDAO customersDAO;
     protected CompaniesDAO companiesDAO;
     protected CouponsDAO couponsDAO;
@@ -27,14 +28,13 @@ public abstract class ClientFacade {
         customersDAO = new CustomersDBDAO();
         companiesDAO = new CompaniesDBDAO();
         couponsDAO = new CouponsDBDAO();
+
         setLogged(login(email, password));
         if (isLogged()) {
             loginSuccessMessage();
         } else {
             System.out.println("Login failed: Invalid credentials.");
         }
-
-
     }
     /**
      * Abstract method for login functionality.
@@ -51,6 +51,7 @@ public abstract class ClientFacade {
     protected void setLogged(boolean logged) {
         isLogged = logged;
     }
+
     public void logout() {
         setLogged(false);;
         System.out.println("Logged out.");
