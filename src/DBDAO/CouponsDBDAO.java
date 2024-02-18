@@ -10,6 +10,7 @@ import exception.DatabaseQueryException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +18,10 @@ import java.util.Map;
 
 public class CouponsDBDAO implements CouponsDAO {
 
+
+    /**
+     * Implementation of the methods from dao
+     */
     @Override
     public void addCoupon(Coupon coupon) {
         String sql = Sql.SqlCommands.coupons.addCoupon;
@@ -141,6 +146,26 @@ public class CouponsDBDAO implements CouponsDAO {
         } else {
             System.out.println("Failed to delete coupon purchase.");
         }
+    }
+
+    @Override
+    public List<Coupon> getExpiredCoupons(LocalDate currentDate) {
+        List<Coupon> expiredCoupons = new ArrayList<>();
+        String sql = Sql.SqlCommands.coupons.getExpiredCoupons;
+        Map<Integer, Object> params = new HashMap<>();
+        params.put(1, currentDate);
+
+        try {
+            ResultSet resultSet = DButils.runQueryForResult(sql, params);
+            while (resultSet.next()) {
+                Coupon coupon = ResultSetUtils.mapResultSetToCoupon(resultSet);
+                expiredCoupons.add(coupon);
+            }
+        } catch (SQLException e) {
+            throw new DatabaseQueryException("Error occurred while retrieving expired coupons", e);
+        }
+
+        return expiredCoupons;
     }
 
     @Override

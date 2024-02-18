@@ -14,6 +14,9 @@ import java.util.Map;
 
 public class CustomersDBDAO implements CustomersDAO {
 
+    /**
+     * Implementation of the CustomersDAO
+     */
     @Override
     public boolean isCustomerExists(String email, String password) {
         String sql = Customer_sql.getCustomerByEmail;

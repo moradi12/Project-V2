@@ -2,7 +2,9 @@ package beans;
 
 public enum Category {
     Electricity,Food,Restaurant,Vacation,SportProducts,Hotels;
-
+    /**
+     * Enum representing different categories
+     */
 
     public static Category fromInt(int intValue) {
         return switch (intValue) {

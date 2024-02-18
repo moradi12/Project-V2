@@ -15,6 +15,10 @@ import java.util.List;
 import java.util.Map;
 
 public class CompaniesDBDAO implements CompaniesDAO {
+
+    /**
+     * Implementation of the methods from dao
+     */
     @Override
     public boolean isCompanyExists(String email, String password) {
         Map<Integer, Object> params = Map.of(1, email, 2, password);
@@ -67,7 +71,7 @@ public class CompaniesDBDAO implements CompaniesDAO {
         List<Company> companies = new ArrayList<>();
         try {
             Map<Integer, Object> params = new HashMap<>();
-            ResultSet resultSet = DButils.runQueryForResult(Sql.SqlCommands.companies.getAllCompanies, params);
+            ResultSet resultSet = DButils.runQueryForResult(Sql.SqlCommands.companies.GET_ALL_COMPANIES, params);
             while (resultSet.next()) {
                 Company company = ResultSetUtils.mapResultSetToCompany(resultSet);
                 companies.add(company);

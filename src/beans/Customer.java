@@ -11,7 +11,7 @@ public class Customer {
     private String password;
     private List<Coupon> coupons;
 
-    // Constructor with all fields except coupons
+
     public Customer(int id, String firstName, String lastName, String email, String password) {
         this.id = id;
         this.firstName = firstName;
@@ -19,8 +19,15 @@ public class Customer {
         this.email = email;
         this.password = password;
     }
-
-    // Constructor with all fields
+    /**
+     * Constructs a customer with specified attributes.
+     *
+     * @param id        the ID of the customer
+     * @param firstName the first name of the customer
+     * @param lastName  the last name of the customer
+     * @param email     the email of the customer
+     * @param password  the password of the customer
+     */
     public Customer(int id, String firstName, String lastName, String email, String password, List<Coupon> coupons) {
         this.id = id;
         this.firstName = firstName;
@@ -30,7 +37,6 @@ public class Customer {
         this.coupons = coupons;
     }
 
-    // Getters and Setters
     public int getId() {
         return id;
     }

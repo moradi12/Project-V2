@@ -8,16 +8,20 @@ import java.util.List;
 
 public interface CouponsDAO {
     void addCoupon(Coupon coupon);
+
     void updateCoupon(Coupon coupon);
+
     void deleteCoupon(int couponID);
+
     List<Coupon> getAllCoupons();
 
     void getOneCoupon(int couponID);
+
     void addCouponPurchase(int customerID, int couponID);
+
     void deleteCouponPurchase(int customerID, int couponID);
 
-
-
+    List<Coupon> getExpiredCoupons(LocalDate currentDate);
 
     void deleteCouponPurchaseHistory(int couponID);
 
@@ -28,12 +32,9 @@ public interface CouponsDAO {
     List<Coupon> getAllCouponsByMaxPrice(double price, int companyId);
 
     boolean isCouponExists(int couponID);
+
     //List<Coupon> getExpiredCoupons(LocalDate currentDate);
     void deleteExpiredCoupons(int companyID, LocalDate currentDate);
-
-
-
-
 
 
 }

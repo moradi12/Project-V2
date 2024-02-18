@@ -13,7 +13,6 @@ public class Customer_sql {
                     "UNIQUE INDEX `EMAIL_UNIQUE` (`EMAIL` ASC) VISIBLE" +
                     ");";
 
-    // Insert a new customer
     public static final String addCustomer = "INSERT INTO `couponnnn`.`customers` " +
             "(`FIRST_NAME`, `LAST_NAME`, `EMAIL`, `PASSWORD`) " +
             "VALUES (?, ?, ?, ?);";
@@ -40,8 +39,9 @@ public class Customer_sql {
             "WHERE `customers_vs_coupons`.`CUSTOMER_ID` = ?";
 
 
+    public static final String getLastInsertId = "SELECT LAST_INSERT_ID(); "  ;
+
     public static final String isCustomerExist = "SELECT EXISTS(" + "SELECT 1 FROM `couponnnn`.`customers` " + "WHERE ID=? OR EMAIL=?" ;
 
     public static final String deleteCustomer = "DELETE FROM `couponnnn`.`customers` WHERE ID = ?";
     public static final String buyCupon = "INSERT INTO `couponnnn`.`customer_coupon` (`CUSTOMER_ID`, `COUPON_ID`) VALUES (?, ?)";}
-

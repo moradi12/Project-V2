@@ -21,7 +21,10 @@ public class AdminFacade extends ClientFacade {
         super(email, password);
         this.companiesDBDAO = new CompaniesDBDAO();
     }
-
+    /**
+     * Constructs an AdminFacade instance with the specified email and password.
+     *
+     * Checks if the user is an admin by verifying email and password  */
     @Override
     public boolean login(String email, String password) {
         Facade.UserType userType = new Facade.UserType(email, password);
@@ -33,6 +36,9 @@ public class AdminFacade extends ClientFacade {
             return false;
         }
     }
+    /**
+     * Adds a new company to the system.
+     */
 
     public void addCompany(Company company) throws CompanyCreationException {
         if (isLogged()) {
@@ -46,7 +52,9 @@ public class AdminFacade extends ClientFacade {
             throw new CompanyCreationException("User is not logged in.");
         }
     }
-
+    /**
+     * Updates an existing company in the system
+     * */
     public void updateCompany(Company company) throws UserNotLogException, CompanyUpdateException {
         if (isLogged()) {
             try {
@@ -60,6 +68,10 @@ public class AdminFacade extends ClientFacade {
         }
     }
 
+
+    /**
+     * Deletes a company from the system
+     */
     public void deleteCompany(int companyId) throws UserNotLogException {
         if (isLogged()) {
             try {
@@ -73,6 +85,9 @@ public class AdminFacade extends ClientFacade {
         }
     }
 // todo finish the try!!!!!!!!!!!!!
+
+    /** List of company
+     */
     public List<Company> getAllCompanies() throws UserNotLogException {
         if (isLogged()) {
             try {
@@ -85,7 +100,9 @@ public class AdminFacade extends ClientFacade {
         }
     }
 
-
+    /**
+     * Get one company from the system
+     */
     public Company getOneCompany(int companyId) throws CompanyNotFoundException {
         Company company = companiesDBDAO.getOneCompany(companyId);
         if (company == null) {
@@ -94,6 +111,12 @@ public class AdminFacade extends ClientFacade {
         return company;
     }
 
+    /**
+     * Adds a new company to the system.
+     *
+     * @param customer add a customer
+     * @throws CompanyCreationException if company creation fails
+     */
     public void addCustomer(Customer customer) throws CustomerAddException, UserNotLogException {
         if (isLogged()) {
             try {
@@ -106,7 +129,9 @@ public class AdminFacade extends ClientFacade {
             throw new UserNotLogException("User is not logged in.");
         }
     }
-
+    /**
+     * Updates an existing customer in the system
+     */
     public void updateCustomer(Customer customer) {
         try {
             customersDBDAO.updateCustomer(customer);
@@ -116,7 +141,9 @@ public class AdminFacade extends ClientFacade {
         }
     }
 
-
+    /**
+     * Deletes a customer from the system
+     */
     public void deleteCustomer(int customerId) {
         try {
             customersDBDAO.deleteCustomer(customerId);
@@ -126,6 +153,10 @@ public class AdminFacade extends ClientFacade {
         }
     }
 
+    /**
+     * get a list of customer from the system
+     */
+
     public List<Customer> getAllCustomers() throws DatabaseQueryException {
         try {
             return customersDBDAO.getAllCustomers();
@@ -133,7 +164,9 @@ public class AdminFacade extends ClientFacade {
             throw new DatabaseQueryException("Failed to retrieve all customers: " + e.getMessage(), e);
         }
     }
-
+    /**
+     * get one customer from the system by ID
+     */
     public Customer getOneCustomer(int customerId) {
         try {
             Customer customer = customersDBDAO.getOneCustomer(customerId);

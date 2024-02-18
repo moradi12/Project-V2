@@ -16,6 +16,20 @@ public class Coupon {
     private Double price;
     private String image;
 
+    /**
+     * Constructs a coupon with specified attributes.
+     *
+     * @param id          the ID of the coupon
+     * @param companyId   the ID of the company associated with the coupon
+     * @param category    the category of the coupon
+     * @param title       the title of the coupon
+     * @param description the description of the coupon
+     * @param startDate   the start date of the coupon validity
+     * @param endDate     the end date of the coupon validity
+     * @param amount      the amount of the coupon available
+     * @param price       the price of the coupon
+     * @param image       the image URL associated with the coupon
+     */
     public Coupon(int id, int companyId, Category category, String title, String description, Date startDate, Date endDate, Integer amount, Double price, String image) {
         this.id = id;
         this.companyId = companyId;

@@ -36,10 +36,9 @@ public class coupons {
     public static final String deleteCouponPurchaseHistory = "DELETE FROM `couponnnn`.`purchase_history` WHERE COUPON_ID = ?";
     public static final String getAllCouponsUpToPriceAndCompany = "SELECT * FROM `couponnnn`.`coupons` WHERE COMPANY_ID = ? AND PRICE <= ?;";
     public static final String getAllCouponsByCategoryAndCompany = "SELECT * FROM `couponnnn`.`coupons` WHERE CATEGORY_ID = ? AND COMPANY_ID = ?";
-
-    public static final String deleteExpiredCoupons =
-            "DELETE FROM `couponnnn`.`coupons` " +  "WHERE ID IN (SELECT ID FROM `couponnnn`.`coupons` WHERE expiration_date <= CURDATE())";
-
+    public static final String getExpiredCoupons = "SELECT * FROM `couponnnn`.`coupons` WHERE expiration_date <= CURDATE()";
+    public static final String deleteExpiredCoupons = "DELETE FROM `couponnnn`.`coupons` "
+            + "WHERE ID IN (SELECT ID FROM `couponnnn`.`coupons` WHERE expiration_date <= CURDATE())";
 
 
 }

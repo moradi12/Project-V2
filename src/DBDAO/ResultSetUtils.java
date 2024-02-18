@@ -14,9 +14,7 @@ import java.util.List;
 public class ResultSetUtils {
 
     /**  * A class containing methods to map ResultSet objects to Java beans */
-    /**
-     * Maps a ResultSet to a Company object
-     *
+    /*** Maps a ResultSet to a Company object
      * @param resultSet The ResultSet containing company data
      * @return The mapped Company object
      */
@@ -40,8 +38,7 @@ public class ResultSetUtils {
 
     /**
      * Maps a ResultSet to a Coupon object
-     *
-     * @param resultSet The ResultSet containing coupon data
+     ** @param resultSet The ResultSet containing coupon data
      * @return The mapped Coupon object
      */
 

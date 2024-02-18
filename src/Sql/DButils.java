@@ -78,6 +78,17 @@ public class DButils {
             preparedStatement.setFloat(key, (Float) value);
         }
     }
+    public static boolean createDatabase(String dbName) {
+        String sql = "CREATE DATABASE IF NOT EXISTS " + dbName;
+        try (Connection connection = ConnectionPool.getInstance().getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.execute();
+            return true;
+        } catch (InterruptedException | SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
 
     }
 

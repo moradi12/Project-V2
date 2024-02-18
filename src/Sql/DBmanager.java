@@ -6,6 +6,10 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBmanager {
+//**
+// Data Base***
+
+
     public static final String URL = "jdbc:mysql://localhost:3306";
     public static final String SQL_USER = "root";
     public static final String SQL_PASSWORD = "12345678";
@@ -17,10 +21,6 @@ public class DBmanager {
     public static final String SQL_COUPONS = "coupons";
     public static final String SQL_CVC = "customers_vs_coupons";
 
-    /**
-     * @return a connection to the database.
-     * @throws SQLException if a database access error occurs.
-     */
 
     // establish a database connection
     public static Connection getConnection() throws SQLException {
@@ -33,23 +33,4 @@ public class DBmanager {
         }
 
     }
-
-
-
-
-    /**
-     * Closes the provided database connection.
-     *
-     * @param connection the connection to be closed.
-     */
-    public static void closeConnection(Connection connection) {
-        if (connection != null) {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                System.out.println("Error closing connection: " + e.getMessage());
-            }
-        }
-    }
 }
-
