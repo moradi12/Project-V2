@@ -11,6 +11,18 @@ class DatabaseInitializer {
         createTables(connection);
     }
 
+    /**createTables היא שיטה ברמה גבוהה יותר המאצילה את המשימה של יצירת טבלאות בודדות ל-createTable
+
+
+     שהיא שיטה ברמה נמוכה יותר האחראית על ביצוע פקודות SQL
+     וטיפול בחריגים. הפרדת הדאגות הזו הופכת את הקוד למודולרי יותר וקל יותר לתחזוקה
+
+     .
+     * initialize the tables
+     * @param connection
+     * @throws SQLException
+     */
+    /// create the tables
     private static void createTables(Connection connection) throws SQLException {
         createTable(connection, Categories.CREATE_TABLE_CATEGORIES, "Categories table created successfully.");
         createTable(connection, companies.CREATE_TABLE_COMPANIES, "Companies table created successfully.");

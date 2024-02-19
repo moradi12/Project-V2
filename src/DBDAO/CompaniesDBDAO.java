@@ -64,8 +64,7 @@ public class CompaniesDBDAO implements CompaniesDAO {
             throw new RuntimeException("Failed to delete company from the database");
         }
     }
-    //// is it null ?!
-//////////////////////////////////TODO LIST IS NOT WORKING
+
     @Override
     public List<Company> getAllCompanies() {
         List<Company> companies = new ArrayList<>();

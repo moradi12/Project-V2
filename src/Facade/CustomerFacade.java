@@ -21,7 +21,6 @@ public class CustomerFacade extends ClientFacade {
         this.couponsDBDAO = new CouponsDBDAO();
         this.customersDBDAO = new CustomersDBDAO();
     }
-////////////todo add sql exception
     @Override
     public boolean login(String email, String password) {
         if (customersDBDAO.isCustomerExists(email, password)) {
