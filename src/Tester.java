@@ -1,11 +1,16 @@
-package Initializer;
-
+import Initializer.*;
+import LoginManagerSyst.LoginManager;
+import Facade.ClientFacade;
 import Sql.ConnectionPool;
 import Sql.DButils;
+import beans.ClientType;
 
-import java.sql.*;
+import javax.security.auth.login.LoginException;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 
-public class Mainv3 {
+public class Tester {
     public static void main(String[] args) {
         try {
             /**
@@ -30,6 +35,9 @@ public class Mainv3 {
 
                 // Print database contents
                 DatabasePrinter.printDatabaseContents(connection);
+
+                // Login example
+                loginExample();
             } finally {
                 // Return the connection to the pool
                 connectionPool.restoreConnection(connection);
@@ -50,6 +58,29 @@ public class Mainv3 {
             System.out.println("Table " + tableName + " dropped successfully.");
         } catch (SQLException e) {
             System.out.println("Error dropping table " + tableName + ": " + e.getMessage());
+        }
+    }
+
+    // Example of logging in using the LoginManager class
+    public static void loginExample() {
+        LoginManager loginManager = LoginManager.getInstance();
+        try {
+            // Log in as a company
+            ClientFacade companyFacade = loginManager.login("company@gmail.com", "password", ClientType.company);
+            // Log out
+            loginManager.logout(companyFacade);
+
+            // Log in as a customer
+            ClientFacade customerFacade = loginManager.login("customer@gmail.com.com", "password", ClientType.customer);
+            // Log out
+            loginManager.logout(customerFacade);
+
+            // Log in as an administrator
+            ClientFacade adminFacade = loginManager.login("admin@admin.com", "admin", ClientType.administrator);
+            // Log out
+            loginManager.logout(adminFacade);
+        } catch (LoginException | SQLException | IllegalArgumentException e) {
+            System.out.println("Error: " + e.getMessage());
         }
     }
 }

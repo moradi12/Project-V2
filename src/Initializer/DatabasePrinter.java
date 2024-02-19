@@ -1,7 +1,7 @@
 package Initializer;
 
 import Sql.SqlCommands.Categories;
-import Sql.SqlCommands.Customer_sql;
+import Sql.SqlCommands.Customer_SQL;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -52,7 +52,7 @@ public class DatabasePrinter {
     }
 
     private static void printCustomers(Connection connection)throws SQLException{
-        printResultSet(connection.createStatement().executeQuery(Customer_sql.getCustomer) , "Customer");
+        printResultSet(connection.createStatement().executeQuery(Customer_SQL.getCustomer) , "Customer");
 
     }
 

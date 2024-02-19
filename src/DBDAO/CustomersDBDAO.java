@@ -2,7 +2,7 @@ package DBDAO;
 
 import DAO.CustomersDAO;
 import Sql.DButils;
-import Sql.SqlCommands.Customer_sql;
+import Sql.SqlCommands.Customer_SQL;
 import beans.Customer;
 
 import java.sql.ResultSet;
@@ -19,7 +19,7 @@ public class CustomersDBDAO implements CustomersDAO {
      */
     @Override
     public boolean isCustomerExists(String email, String password) {
-        String sql = Customer_sql.getCustomerByEmail;
+        String sql = Customer_SQL.getCustomerByEmail;
         Map<Integer, Object> params = new HashMap<>();
         params.put(1, email);
 
@@ -38,7 +38,7 @@ public class CustomersDBDAO implements CustomersDAO {
 
     @Override
     public void addCustomer(Customer customer) {
-        String sql = Customer_sql.addCustomer;
+        String sql = Customer_SQL.addCustomer;
         Map<Integer, Object> params = new HashMap<>();
         params.put(1, customer.getFirstName());
         params.put(2, customer.getLastName());
@@ -61,7 +61,7 @@ public class CustomersDBDAO implements CustomersDAO {
         params.put(3, customer.getEmail());
         params.put(4, customer.getPassword());
         params.put(5, customer.getId());
-        if (!DButils.runQuery(Customer_sql.updateCustomer, params)) {
+        if (!DButils.runQuery(Customer_SQL.updateCustomer, params)) {
             throw new SQLException("Failed to update customer.");
         }
         System.out.println("Customer updated successfully!");
@@ -69,7 +69,7 @@ public class CustomersDBDAO implements CustomersDAO {
 
     @Override
     public void deleteCustomer(int customerId) {
-        String sql = Customer_sql.deleteCustomer;
+        String sql = Customer_SQL.deleteCustomer;
         Map<Integer, Object> params = new HashMap<>();
         params.put(1, customerId);
 
@@ -83,7 +83,7 @@ public class CustomersDBDAO implements CustomersDAO {
 
     @Override
     public List<Customer> getAllCustomers() {
-        String sql = Customer_sql.getAllCustomers;
+        String sql = Customer_SQL.getAllCustomers;
         List<Customer> customers = new ArrayList<>();
 
         try (ResultSet resultSet = DButils.runQueryForResult(sql, new HashMap<>())) {
@@ -98,7 +98,7 @@ public class CustomersDBDAO implements CustomersDAO {
 
     @Override
     public Customer getOneCustomer(int customerId) {
-        String sql = Customer_sql.getCustomer;
+        String sql = Customer_SQL.getCustomer;
         Map<Integer, Object> params = new HashMap<>();
         params.put(1, customerId);
         try (ResultSet resultSet = DButils.runQueryForResult(sql, params)) {

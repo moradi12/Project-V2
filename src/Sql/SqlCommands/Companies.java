@@ -1,9 +1,9 @@
 package Sql.SqlCommands;
 
-public class companies {
+public class Companies {
     public static final String CREATE_TABLE_COMPANIES =
             "CREATE TABLE IF NOT EXISTS `couponnnn`.`companies` (" +
-                    "`idCOMPANIES` INT NOT NULL AUTO_INCREMENT," + // Add AUTO_INCREMENT here
+                    "`idCOMPANIES` INT NOT NULL AUTO_INCREMENT," +
                     "`NAME` VARCHAR(45) NULL," +
                     "`EMAIL` VARCHAR(45) NULL," +
                     "`PASSWORD` VARCHAR(45) NULL," +

@@ -78,7 +78,7 @@ public class CompanyFacade extends ClientFacade {
             throw new CouponNotFoundException("Failed to retrieve coupons by category: " + e.getMessage());
         }
     }
-
+    /// list bigger than 1  check
     public List<Coupon> getAllCouponsByMaxPrice(double MaxPrice, int companyId) throws CouponNotFoundException {
         try {
             return couponsDBDAO.getAllCouponsByMaxPrice(MaxPrice, companyId);

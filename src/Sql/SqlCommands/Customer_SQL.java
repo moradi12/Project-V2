@@ -1,6 +1,6 @@
 package Sql.SqlCommands;
 
-public class Customer_sql {
+public class Customer_SQL {
 
     public static final String CREATE_TABLE_CUSTOMERS =
             "CREATE TABLE IF NOT EXISTS `couponnnn`.`customers` (" +

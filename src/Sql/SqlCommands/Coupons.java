@@ -1,6 +1,6 @@
 package Sql.SqlCommands;
 
-public class coupons {
+public class Coupons {
     public static final String CREATE_TABLE_COUPONS =
 
             "CREATE TABLE IF NOT EXISTS `couponnnn`.`coupons` (" +
@@ -26,7 +26,8 @@ public class coupons {
             "VALUES (?, ?, ?, ?);";
     public static final String getAllCoupons = "SELECT * FROM `couponnnn`.`coupons`";
 
-    public static final String getExpiredCouponsQuery = "SELECT * FROM coupons WHERE expiration_date <= ? AND price <= ?";
+    public static final String getExpiredCouponsQuery = "SELECT * FROM coupons WHERE expiration_date <= ? ";
+            // להוטס
     public static final String getCouponById = "SELECT * FROM `couponnnn`.`coupons` WHERE ID=?";
     public static final String getOneCoupon = "SELECT * FROM `couponnnn`.`coupons` WHERE TITLE=? LIMIT 1";
     public static final String updateCoupon = "UPDATE `couponnnn`.`coupons` SET COLUMN_NAME = ? WHERE ID = ?";

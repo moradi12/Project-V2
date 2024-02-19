@@ -18,6 +18,10 @@ public class Company {
         this.coupons = coupons;
     }
 
+    public Company() {
+
+    }
+
     public Integer getId() {
         return id;
     }

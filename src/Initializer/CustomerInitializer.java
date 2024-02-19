@@ -5,7 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import Sql.SqlCommands.Customer_sql;
+import Sql.SqlCommands.Customer_SQL;
 
 public class CustomerInitializer {
     public static void initialize(Connection connection) throws SQLException {
@@ -25,7 +25,7 @@ public class CustomerInitializer {
     // . בנוסף הוא מאחזר את המזהה שנוצר של הלקוח החדש שהוכנס ומדפיס הודעת הצלחה אם היא מצליחה/
 
     private static void addCustomer(Connection connection, String name, String email, String password) throws SQLException {
-        String addCustomerSql = Customer_sql.addCustomer;
+        String addCustomerSql = Customer_SQL.addCustomer;
         try (PreparedStatement addCustomerStatement = connection.prepareStatement(addCustomerSql)) {
             addCustomerStatement.setString(1, name);
             addCustomerStatement.setString(2, email);
@@ -47,7 +47,7 @@ public class CustomerInitializer {
     //
     //שיטה זו מספקת דרך להשיג את המזהה של הרשומה האחרונה שהוכנסה במסד הנתונים,//
     private static int retrieveGeneratedId(Connection connection) throws SQLException {
-        String getLastInsertIdSql = Customer_sql.getLastInsertId;
+        String getLastInsertIdSql = Customer_SQL.getLastInsertId;
         try (PreparedStatement getLastInsertIdStatement = connection.prepareStatement(getLastInsertIdSql)) {
             try (ResultSet resultSet = getLastInsertIdStatement.executeQuery()) {
                 if (resultSet.next()) {

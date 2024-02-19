@@ -1,6 +1,6 @@
 package Sql.SqlCommands;
 
-public class customers_vs_coupons {
+public class Customers_VS_Coupons {
 
     public static final String CREATE_TABLE_CVC = getCreateTableCVC();
 

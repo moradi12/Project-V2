@@ -34,7 +34,7 @@ public class CustomerInitializer {
     /// add a few at the same time
     
     private static void addCustomer(Connection connection, String name, String email, String password) throws SQLException {
-        try (PreparedStatement addCustomerStatement = connection.prepareStatement(Customer_sql.addCustomer, Statement.RETURN_GENERATED_KEYS)) {
+        try (PreparedStatement addCustomerStatement = connection.prepareStatement(Customer_SQL.addCustomer, Statement.RETURN_GENERATED_KEYS)) {
             addCustomerStatement.setString(1, name);
             addCustomerStatement.setString(2, email);
             addCustomerStatement.setString(3, password);

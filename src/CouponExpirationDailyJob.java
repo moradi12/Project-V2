@@ -22,6 +22,8 @@ public class CouponExpirationDailyJob implements Runnable {
     public static void main(String[] args) {
         CouponExpirationDailyJob dailyJob = new CouponExpirationDailyJob();
         Thread dailyJobThread = new Thread(
+
+                ///Thread dailyJobThread = new Thread(dailyJob);/////
                 String.valueOf(dailyJob));
         dailyJobThread.start();
 
@@ -34,6 +36,7 @@ public class CouponExpirationDailyJob implements Runnable {
 
     /**
      * Constructs a CouponExpirationDailyJob object
+
      * By default, the job is not set to quit
      */
     public CouponExpirationDailyJob() {
@@ -75,7 +78,7 @@ public class CouponExpirationDailyJob implements Runnable {
             couponsDBDAO.deleteCoupon(coupon.getId());
             System.out.println("Expired coupon (ID: " + coupon.getId() + ") has been removed.");
         }
-
+///    public static final String getExpiredCouponsQuery = "SELECT * FROM coupons WHERE expiration_date <= ? ";/////
         );
     }
 }

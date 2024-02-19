@@ -2,9 +2,8 @@ package DBDAO;
 
 import DAO.CompaniesDAO;
 import Sql.DButils;
-import Sql.SqlCommands.companies;
+import Sql.SqlCommands.Companies;
 import beans.Company;
-import beans.Coupon;
 import exception.DatabaseQueryException;
 
 import java.sql.ResultSet;
@@ -22,7 +21,7 @@ public class CompaniesDBDAO implements CompaniesDAO {
     @Override
     public boolean isCompanyExists(String email, String password) {
         Map<Integer, Object> params = Map.of(1, email, 2, password);
-        try (ResultSet resultSet = DButils.runQueryForResult(companies.IsCompanyExist, params)) {
+        try (ResultSet resultSet = DButils.runQueryForResult(Companies.IsCompanyExist, params)) {
             return resultSet.next();
         } catch (SQLException e) {
             throw new DatabaseQueryException("Failed to check if company exists in the database", e);
@@ -35,7 +34,7 @@ public class CompaniesDBDAO implements CompaniesDAO {
         params.put(1, company.getName());
         params.put(2, company.getEmail());
         params.put(3, company.getPassword());
-        if (DButils.runQuery(companies.addCompany, params)) {
+        if (DButils.runQuery(Companies.addCompany, params)) {
             System.out.println("Company added ");
         }
         throw new RuntimeException("Failed to add company to the database");
@@ -47,7 +46,7 @@ public class CompaniesDBDAO implements CompaniesDAO {
         params.put(2, company.getEmail());
         params.put(3, company.getPassword());
         params.put(4, company.getId());
-        if (DButils.runQuery(companies.updateCompany, params)) {
+        if (DButils.runQuery(Companies.updateCompany, params)) {
             System.out.println("Company updated");
         } else {
             throw new RuntimeException("Failed to update company in the database");
@@ -58,7 +57,7 @@ public class CompaniesDBDAO implements CompaniesDAO {
     public void deleteCompany(int companyID) {
         Map<Integer, Object> params = new HashMap<>();
         params.put(1, companyID);
-        if (DButils.runQuery(companies.deleteCompany, params)) {
+        if (DButils.runQuery(Companies.deleteCompany, params)) {
             System.out.println("Company deleted");
         } else {
             throw new RuntimeException("Failed to delete company from the database");
@@ -70,7 +69,7 @@ public class CompaniesDBDAO implements CompaniesDAO {
         List<Company> companies = new ArrayList<>();
         try {
             Map<Integer, Object> params = new HashMap<>();
-            ResultSet resultSet = DButils.runQueryForResult(Sql.SqlCommands.companies.GET_ALL_COMPANIES, params);
+            ResultSet resultSet = DButils.runQueryForResult(Companies.GET_ALL_COMPANIES, params);
             while (resultSet.next()) {
                 Company company = ResultSetUtils.mapResultSetToCompany(resultSet);
                 companies.add(company);
@@ -85,7 +84,7 @@ public class CompaniesDBDAO implements CompaniesDAO {
         try {
             Map<Integer, Object> params = new HashMap<>();
             params.put(1, companyID);
-            ResultSet resultSet = DButils.runQueryForResult(Sql.SqlCommands.companies.getCompanyById, params);
+            ResultSet resultSet = DButils.runQueryForResult(Companies.getCompanyById, params);
             if (resultSet.next()) {
                 return ResultSetUtils.mapResultSetToCompany(resultSet);
             } else {

@@ -81,8 +81,7 @@ public class LoginManager {
         return facade;
     }
     /**
-     * Logs out a user.
-     */
+     * Logout */
     public void logout(ClientFacade facade) {
         facade.logout();
         System.out.println("Logout successful");

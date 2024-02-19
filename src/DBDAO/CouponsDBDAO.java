@@ -2,7 +2,7 @@ package DBDAO;
 
 import DAO.CouponsDAO;
 import Sql.DButils;
-import Sql.SqlCommands.coupons;
+import Sql.SqlCommands.Coupons;
 import beans.Category;
 import beans.Coupon;
 import exception.DatabaseQueryException;
@@ -10,7 +10,6 @@ import exception.DatabaseQueryException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,7 +23,7 @@ public class CouponsDBDAO implements CouponsDAO {
      */
     @Override
     public void addCoupon(Coupon coupon) {
-        String sql = Sql.SqlCommands.coupons.addCoupon;
+        String sql = Coupons.addCoupon;
         Map<Integer, Object> params = new HashMap<>();
         params.put(1, coupon.getCompanyId());
         params.put(2, coupon.getCategory().ordinal() + 1);
@@ -47,7 +46,7 @@ public class CouponsDBDAO implements CouponsDAO {
 
     @Override
     public void updateCoupon(Coupon coupon) {
-        String sql = coupons.updateCoupon;
+        String sql = Coupons.updateCoupon;
         Map<Integer, Object> params = new HashMap<>();
         params.put(1, coupon.getTitle());
         params.put(2, coupon.getDescription());
@@ -67,7 +66,7 @@ public class CouponsDBDAO implements CouponsDAO {
 
     @Override
     public void deleteCoupon(int couponID) {
-        String sql = coupons.deleteCoupon;
+        String sql = Coupons.deleteCoupon;
         Map<Integer, Object> params = new HashMap<>();
         params.put(1, couponID);
         boolean success = DButils.runQuery(sql, params);
@@ -82,7 +81,7 @@ public class CouponsDBDAO implements CouponsDAO {
     @Override
     public List<Coupon> getAllCoupons() {
         List<Coupon> coupons = new ArrayList<>();
-        String sql = Sql.SqlCommands.coupons.getAllCoupons;
+        String sql = Coupons.getAllCoupons;
 
         try {
             ResultSet resultSet = DButils.runQueryForResult(sql, new HashMap<>());
@@ -99,7 +98,7 @@ public class CouponsDBDAO implements CouponsDAO {
 
     @Override
     public void getOneCoupon(int couponID) {
-        String sql = Sql.SqlCommands.coupons.getOneCoupon;
+        String sql = Coupons.getOneCoupon;
         Map<Integer, Object> params = new HashMap<>();
         params.put(1, couponID);
         try {
@@ -118,7 +117,7 @@ public class CouponsDBDAO implements CouponsDAO {
 
     @Override
     public void addCouponPurchase(int customerID, int couponID) {
-        String sql = coupons.addCouponPurchase;
+        String sql = Coupons.addCouponPurchase;
         Map<Integer, Object> params = new HashMap<>();
         params.put(1, customerID);
         params.put(2, couponID);
@@ -134,7 +133,7 @@ public class CouponsDBDAO implements CouponsDAO {
 
     @Override
     public void deleteCouponPurchase(int customerID, int couponID) {
-        String sql = Sql.SqlCommands.coupons.deleteCouponPurchase;
+        String sql = Coupons.deleteCouponPurchase;
         Map<Integer, Object> params = new HashMap<>();
         params.put(1, customerID);
         params.put(2, couponID);
@@ -151,7 +150,7 @@ public class CouponsDBDAO implements CouponsDAO {
     @Override
     public List<Coupon> getExpiredCoupons(LocalDate currentDate) {
         List<Coupon> expiredCoupons = new ArrayList<>();
-        String sql = Sql.SqlCommands.coupons.getExpiredCoupons;
+        String sql = Coupons.getExpiredCoupons;
         Map<Integer, Object> params = new HashMap<>();
         params.put(1, currentDate);
 
@@ -170,7 +169,7 @@ public class CouponsDBDAO implements CouponsDAO {
 
     @Override
     public void deleteCouponPurchaseHistory(int couponID) {
-        String sql = Sql.SqlCommands.coupons.deleteCouponPurchaseHistory;
+        String sql = Coupons.deleteCouponPurchaseHistory;
         Map<Integer, Object> params = new HashMap<>();
         params.put(1, couponID);
 
@@ -186,7 +185,7 @@ public class CouponsDBDAO implements CouponsDAO {
     @Override
     public List<Coupon> getAllCouponsByCompany(int companyId) {
         List<Coupon> coupons = new ArrayList<>();
-        String sql = Sql.SqlCommands.coupons.getAllCouponsByCompany;
+        String sql = Coupons.getAllCouponsByCompany;
         Map<Integer, Object> params = new HashMap<>();
         params.put(1, companyId);
         try {
@@ -204,7 +203,7 @@ public class CouponsDBDAO implements CouponsDAO {
     @Override
     public List<Coupon> getAllCouponsByCategoryAndCompany(Category category, int companyId) {
         List<Coupon> coupons = new ArrayList<>();
-        String sql = Sql.SqlCommands.coupons.getAllCouponsByCategoryAndCompany;
+        String sql = Coupons.getAllCouponsByCategoryAndCompany;
         Map<Integer, Object> params = new HashMap<>();
         params.put(1, category.ordinal() + 1);
         params.put(2, companyId);
@@ -225,7 +224,7 @@ public class CouponsDBDAO implements CouponsDAO {
     @Override
     public List<Coupon> getAllCouponsByMaxPrice(double MaxPrice, int companyId) {
         List<Coupon> coupons = new ArrayList<>();
-        String sql = Sql.SqlCommands.coupons.getAllCouponsUpToPriceAndCompany;
+        String sql = Coupons.getAllCouponsUpToPriceAndCompany;
         Map<Integer, Object> params = new HashMap<>();
         params.put(1, MaxPrice);
         params.put(2, companyId);
@@ -245,7 +244,7 @@ public class CouponsDBDAO implements CouponsDAO {
 
     @Override
     public boolean isCouponExists(int couponID) {
-        String sql = Sql.SqlCommands.coupons.getCouponById;
+        String sql = Coupons.getCouponById;
         Map<Integer, Object> params = new HashMap<>();
         params.put(1, couponID);
         try {
@@ -258,7 +257,7 @@ public class CouponsDBDAO implements CouponsDAO {
 
     @Override
     public void deleteExpiredCoupons(int companyID, LocalDate currentDate) {
-        String sql = Sql.SqlCommands.coupons.deleteExpiredCoupons;
+        String sql = Coupons.deleteExpiredCoupons;
         Map<Integer, Object> params = new HashMap<>();
         params.put(1, companyID);
         params.put(2, currentDate);
