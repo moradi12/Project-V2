@@ -33,4 +33,7 @@ public class Companies {
     public static final String deleteCompany = "DELETE FROM `couponnnn`.`companies` WHERE `idCOMPANIES`=?";
 
     public static final String getCompanyDetails = "SELECT * FROM `couponnnn`.`companies` WHERE `ID`=?";
+
+
+
 }

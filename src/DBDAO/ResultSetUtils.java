@@ -55,7 +55,7 @@ public class ResultSetUtils {
         Double price = resultSet.getDouble("price");
         String image = resultSet.getString("image");
 
-        return new Coupon(id, companyId, category, title, description, startDate, endDate, amount, price, image);
+        return new Coupon(id, companyId, category, title, description, (java.sql.Date) startDate, (java.sql.Date) endDate, amount, price, image);
     }
 
 

@@ -18,6 +18,13 @@ public class Company {
         this.coupons = coupons;
     }
 
+    public Company(String name, String email, String password) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.coupons = new ArrayList<>();
+    }
+
     public Company() {
 
     }

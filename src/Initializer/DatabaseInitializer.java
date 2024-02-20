@@ -11,6 +11,7 @@ public class DatabaseInitializer {
         createTables(connection);
     }
 
+
     /**createTables היא שיטה ברמה גבוהה יותר המאצילה את המשימה של יצירת טבלאות בודדות ל-createTable
 
 
@@ -40,6 +41,16 @@ public class DatabaseInitializer {
             throw e;
         }
     }
+    // Method to drop a table
 
+    public static void dropTable(Connection connection, String tableName) {
+        String dropQuery = "DROP TABLE IF EXISTS couponnnn." + tableName;
+        try (Statement statement = connection.createStatement()) {
+            statement.executeUpdate(dropQuery);
+            System.out.println("Table " + tableName + " dropped successfully.");
+        } catch (SQLException e) {
+            System.out.println("Error dropping table " + tableName + ": " + e.getMessage());
+        }
+    }
 
 }

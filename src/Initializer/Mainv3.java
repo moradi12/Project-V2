@@ -5,6 +5,8 @@ import Sql.DButils;
 
 import java.sql.*;
 
+import static Initializer.DatabaseInitializer.dropTable;
+
 public class Mainv3 {
     public static void main(String[] args) {
         try {
@@ -34,22 +36,13 @@ public class Mainv3 {
                 // Return the connection to the pool
                 connectionPool.restoreConnection(connection);
 
-                // Drop table if needed
-                dropTable(connection, "name ");
+                // Uncomment the line below to drop the table when needed
+                // dropTable(connection, "customers_vs_coupons");
             }
         } catch (SQLException | InterruptedException e) {
             System.out.println("Error: " + e.getMessage());
         }
     }
 
-    // Method to drop a table
-    public static void dropTable(Connection connection, String tableName) {
-        String dropQuery = "DROP TABLE IF EXISTS " + tableName;
-        try (Statement statement = connection.createStatement()) {
-            statement.executeUpdate(dropQuery);
-            System.out.println("Table " + tableName + " dropped successfully.");
-        } catch (SQLException e) {
-            System.out.println("Error dropping table " + tableName + ": " + e.getMessage());
-        }
-    }
+
 }

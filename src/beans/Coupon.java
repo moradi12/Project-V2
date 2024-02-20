@@ -4,14 +4,16 @@ package beans;
 import java.util.Date;
 
 public class Coupon {
+
+
     private final int id;
     private final int companyId;
     private final Category category;
     private String title;
 
     private String description;
-    private Date startDate;
-    private Date endDate;
+    private java.sql.Date startDate;
+    private java.sql.Date endDate;
     private Integer amount;
     private Double price;
     private String image;
@@ -30,7 +32,7 @@ public class Coupon {
      * @param price       the price of the coupon
      * @param image       the image URL associated with the coupon
      */
-    public Coupon(int id, int companyId, Category category, String title, String description, Date startDate, Date endDate, Integer amount, Double price, String image) {
+    public Coupon(int id, int companyId, Category category, String title, String description, java.sql.Date startDate, java.sql.Date endDate, Integer amount, Double price, String image) {
         this.id = id;
         this.companyId = companyId;
         this.category = category;
@@ -76,7 +78,7 @@ public class Coupon {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(java.sql.Date startDate) {
         this.startDate = startDate;
     }
 
@@ -84,7 +86,7 @@ public class Coupon {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(java.sql.Date endDate) {
         this.endDate = endDate;
     }
 
@@ -127,5 +129,6 @@ public class Coupon {
                 ", image='" + image + '\'' +
                 '}';
     }
+
 }
 

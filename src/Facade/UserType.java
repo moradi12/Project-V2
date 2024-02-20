@@ -93,6 +93,7 @@ public class UserType {
     public boolean loginAsCustomerVsCouponUser() {
         return existsInTable(Sql.DBmanager.SQL_CVC);
     }
+
 }
 
 //package Facade;

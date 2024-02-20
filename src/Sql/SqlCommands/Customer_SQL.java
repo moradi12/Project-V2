@@ -41,7 +41,13 @@ public class Customer_SQL {
 
     public static final String getLastInsertId = "SELECT LAST_INSERT_ID(); "  ;
 
-    public static final String isCustomerExist = "SELECT EXISTS(" + "SELECT 1 FROM `couponnnn`.`customers` " + "WHERE ID=? OR EMAIL=?" ;
+    public static final String isCustomerExistBot = "SELECT EXISTS(" +
+            "SELECT 1 FROM `couponnnn`.`customers` " +
+            "WHERE ID=? OR EMAIL=?)";
 
     public static final String deleteCustomer = "DELETE FROM `couponnnn`.`customers` WHERE ID = ?";
-    public static final String buyCupon = "INSERT INTO `couponnnn`.`customer_coupon` (`CUSTOMER_ID`, `COUPON_ID`) VALUES (?, ?)";}
+    public static final String buyCupon = "INSERT INTO `couponnnn`.`customer_coupon` (`CUSTOMER_ID`, `COUPON_ID`) VALUES (?, ?)";
+
+    public static final String IsCustomerExist = "SELECT COUNT(*) FROM `couponnnn`.`customers` WHERE ID = ?";
+}
+

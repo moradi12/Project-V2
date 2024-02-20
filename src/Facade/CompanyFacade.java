@@ -81,6 +81,9 @@ public class CompanyFacade extends ClientFacade {
     /// list bigger than 1  check
     public List<Coupon> getAllCouponsByMaxPrice(double MaxPrice, int companyId) throws CouponNotFoundException {
         try {
+
+
+
             return couponsDBDAO.getAllCouponsByMaxPrice(MaxPrice, companyId);
         } catch (DatabaseQueryException e) {
             throw new CouponNotFoundException("Failed to retrieve coupons by price: " + e.getMessage());

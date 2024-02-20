@@ -22,6 +22,7 @@ public interface CouponsDAO {
     void deleteCouponPurchase(int customerID, int couponID);
 
     List<Coupon> getExpiredCoupons(LocalDate currentDate);
+    void deleteCouponsByCompany(int companyId);
 
     void deleteCouponPurchaseHistory(int couponID);
 

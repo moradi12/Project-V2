@@ -168,6 +168,24 @@ public class CouponsDBDAO implements CouponsDAO {
     }
 
     @Override
+    public void deleteCouponsByCompany(int companyId) {
+        String sql = Coupons.deleteCouponsByCompany;
+        Map<Integer, Object> params = new HashMap<>();
+        params.put(1, companyId);
+
+        boolean success = DButils.runQuery(sql, params);
+
+        if (success) {
+            System.out.println("Coupons associated with company deleted successfully.");
+        } else {
+            System.out.println("Failed to delete coupons associated with company.");
+        }
+    }
+
+
+
+
+    @Override
     public void deleteCouponPurchaseHistory(int couponID) {
         String sql = Coupons.deleteCouponPurchaseHistory;
         Map<Integer, Object> params = new HashMap<>();

@@ -69,5 +69,6 @@ public class CustomerFacade extends ClientFacade {
         } else {
             throw new UserNotLogException("Customer not logged in.");
         }
+
     }
 }

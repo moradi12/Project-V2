@@ -4,15 +4,24 @@ import java.util.List;
 
 public class Customer {
     // Fields
-    private final int id;
+    private int id;
     private String firstName;
     private String lastName;
     private String email;
     private String password;
     private List<Coupon> coupons;
 
+    public Customer(String email, String password) {
+    }
 
     public Customer(int id, String firstName, String lastName, String email, String password) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;    }
+
+    public Customer(String firstName, String lastName, String email) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;

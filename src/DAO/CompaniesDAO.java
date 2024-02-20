@@ -2,6 +2,7 @@ package DAO;
 
 
 import beans.Company;
+import exception.DatabaseQueryException;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -13,7 +14,7 @@ public interface CompaniesDAO {
     void updateCompany(Company company);
     void deleteCompany(int companyID);
     List<Company> getAllCompanies();
-    Company getOneCompany(int companyID);
+    Company getOneCompany(int companyID) throws DatabaseQueryException;
 
 
 

@@ -25,5 +25,8 @@ public class TableDropper {
             System.out.println("Error dropping table: " + e.getMessage());
             throw new RuntimeException("Error dropping table: " + e.getMessage(), e);
         }
+
+
+
     }
 }

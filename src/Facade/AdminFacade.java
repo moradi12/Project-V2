@@ -3,7 +3,6 @@ package Facade;
 import DBDAO.CompaniesDBDAO;
 import DBDAO.CouponsDBDAO;
 import DBDAO.CustomersDBDAO;
-import Sql.DBmanager;
 import beans.Company;
 import beans.Customer;
 import exception.*;
@@ -20,88 +19,78 @@ public class AdminFacade extends ClientFacade {
         super(email, password);
         this.companiesDBDAO = new CompaniesDBDAO();
         this.customersDBDAO = new CustomersDBDAO();
+        this.couponsDBDAO = new CouponsDBDAO();
     }
 
     @Override
     public boolean login(String email, String password) {
-        Facade.UserType userType = new Facade.UserType(email, password);
-        if (userType.getEmail().equals(DBmanager.SQL_USER) && userType.getPassword().equals(DBmanager.SQL_PASSWORD)) {
-            System.out.println("Logged in as admin.");
-            return true;
-        } else {
-            System.out.println("Login failed: Invalid credentials.");
-            return false;
-        }
+        return email.equals("admin@admin.com") && password.equals("admin");
     }
 
-    public void addCompany(Company company) throws CompanyCreationException {
-        if (isLogged()) {
-            try {
+    public void addCompany(Company company) throws CompanyCreationException, UserNotLogException {
+        if (!isLogged()) {
+            throw new UserNotLogException("User is not logged in.");
+        }
+
+        try {
+            if (companiesDBDAO.isCompanyExists(company.getEmail(), company.getPassword())) {
+                System.out.println("Company already exists.");
+            } else {
                 companiesDBDAO.addCompany(company);
                 System.out.println("Company added successfully.");
-            } catch (Exception e) {
-                throw new CompanyCreationException("Failed to add company: " + e.getMessage());
             }
-        } else {
-            throw new CompanyCreationException("User is not logged in.");
+        } catch (Exception e) {
+            throw new CompanyCreationException("Failed to add company: " + e.getMessage());
         }
     }
 
     public void updateCompany(Company company) throws UserNotLogException, CompanyUpdateException {
-        if (isLogged()) {
-            try {
-                companiesDBDAO.updateCompany(company);
-                System.out.println("Company updated successfully.");
-            } catch (Exception e) {
-                throw new CompanyUpdateException("Failed to update company: " + e.getMessage());
-            }
-        } else {
-            throw new UserNotLogException("User is not logged in.");
+        if (!isLogged()) throw new UserNotLogException("User is not logged in.");
+        try {
+            companiesDBDAO.updateCompany(company);
+            System.out.println("Company updated successfully.");
+        } catch (Exception e) {
+            throw new CompanyUpdateException("Failed to update company: " + e.getMessage());
         }
     }
 
-    public void deleteCompany(int companyId) throws UserNotLogException {
-        if (isLogged()) {
-            try {
-                companiesDBDAO.deleteCompany(companyId);
-                System.out.println("Company deleted successfully.");
-            } catch (Exception e) {
-                throw new RuntimeException("Failed to delete company: " + e.getMessage());
-            }
-        } else {
-            throw new UserNotLogException("User is not logged in.");
+    public void deleteCompanyAndCoupons(int companyId) throws UserNotLogException {
+        if (!isLogged()) throw new UserNotLogException("User is not logged in.");
+
+        // Delete all coupons associated with the company
+        try {
+            couponsDBDAO.deleteCouponsByCompany(companyId);
+            System.out.println("Coupons associated with company deleted successfully.");
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to delete coupons associated with company: " + e.getMessage());
+        }
+
+        // Delete the company itself
+        try {
+            companiesDBDAO.deleteCompany(companyId);
+            System.out.println("Company deleted successfully.");
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to delete company: " + e.getMessage());
         }
     }
 
     public List<Company> getAllCompanies() throws UserNotLogException {
-        if (isLogged()) {
-            try {
-                return companiesDBDAO.getAllCompanies();
-            } catch (Exception e) {
-                throw new RuntimeException("Failed to retrieve companies: " + e.getMessage());
-            }
-        } else {
-            throw new UserNotLogException("User is not logged in.");
+        if (!isLogged()) throw new UserNotLogException("User is not logged in.");
+        try {
+            return companiesDBDAO.getAllCompanies();
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to retrieve companies: " + e.getMessage());
         }
     }
 
     public Company getOneCompany(int companyId) throws CompanyNotFoundException {
         Company company = companiesDBDAO.getOneCompany(companyId);
-        if (company == null) {
-            throw new CompanyNotFoundException("Company with ID " + companyId + " not found.");
-        }
+        if (company == null) throw new CompanyNotFoundException("Company with ID " + companyId + " not found.");
         return company;
     }
 
     public void addCustomer(Customer customer) throws CustomerAddException, UserNotLogException {
-        if (isLogged()) {
-            try {
-                customersDBDAO.addCustomer(customer);
-                System.out.println("Customer added successfully.");
-            } catch (Exception e) {
-                throw new CustomerAddException("Failed to add customer: " + e.getMessage());
-            }
-        } else {
+        if (!isLogged()) {
             throw new UserNotLogException("User is not logged in.");
         }
     }
@@ -125,21 +114,18 @@ public class AdminFacade extends ClientFacade {
     }
 
     public List<Customer> getAllCustomers() throws DatabaseQueryException, UserNotLogException {
-        if (isLogged()) {
-            try {
-                return customersDBDAO.getAllCustomers();
-            } catch (Exception e) {
-                throw new DatabaseQueryException("Failed to retrieve all customers: " + e.getMessage(), e);
-            }
-        } else {
-            throw new UserNotLogException("User is not logged in.");
+        if (!isLogged()) throw new UserNotLogException("User is not logged in.");
+        try {
+            return customersDBDAO.getAllCustomers();
+        } catch (Exception e) {
+            throw new DatabaseQueryException("Failed to retrieve all customers: " + e.getMessage(), e);
         }
     }
+
     public Customer getOneCustomer(int customerId) throws CustomerNotFoundException {
-        try {Customer customer = customersDBDAO.getOneCustomer(customerId);
-            if (customer == null) {
-                throw new CustomerNotFoundException("Customer with ID " + customerId + " not found.");
-            }
+        try {
+            Customer customer = customersDBDAO.getOneCustomer(customerId);
+            if (customer == null) throw new CustomerNotFoundException("Customer with ID " + customerId + " not found.");
             return customer;
         } catch (Exception e) {
             throw new CustomerNotFoundException("Failed to retrieve customer: " + e.getMessage());

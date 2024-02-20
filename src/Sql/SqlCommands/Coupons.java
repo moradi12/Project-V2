@@ -13,20 +13,24 @@ public class Coupons {
                     "`AMOUNT` INT NOT NULL," +
                     "`PRICE` DOUBLE NOT NULL," +
                     "`IMAGE` VARCHAR(45) NULL," +
+                    "`EXPIRATION_DATE` DATE NOT NULL," + // Added expiration_date column
                     "PRIMARY KEY (`ID`)," +
                     "UNIQUE INDEX `ID_UNIQUE` (`ID` ASC) VISIBLE" +
                     ");";
-
     // Insert a new coupon
     public static final String addCoupon = "INSERT INTO `couponnnn`.`coupons` " +
-            "(`COMPANY_ID`, `CATEGORY_ID`, `TITLE`, `DESCRIPTION`, `START_DATE`, `AMOUNT`, `PRICE`, `IMAGE`) " +
-            "VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+            "(`COMPANY_ID`, `CATEGORY_ID`, `TITLE`, `DESCRIPTION`, `START_DATE`, `AMOUNT`, `PRICE`, `IMAGE`, `EXPIRATION_DATE`) " +
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);";
+
+    public static final String deleteExpiredCoupons = "DELETE FROM `couponnnn`.`coupons` "
+            + "WHERE ID IN (SELECT ID FROM `couponnnn`.`coupons` WHERE expiration_date <= CURDATE());";
+    public static final String getExpiredCouponsQuery = "SELECT * FROM `couponnnn`.`coupons` WHERE expiration_date <= ? ";
+
     public static final String addCouponPurchase = "INSERT INTO `coupon_purchases` " +
             "(`CUSTOMER_ID`, `COUPON_ID`, `PURCHASE_DATE`, `AMOUNT_PAID`) " +
             "VALUES (?, ?, ?, ?);";
     public static final String getAllCoupons = "SELECT * FROM `couponnnn`.`coupons`";
-
-    public static final String getExpiredCouponsQuery = "SELECT * FROM coupons WHERE expiration_date <= ? ";
+    public static final String deleteCouponsByCompany = "DELETE FROM `couponnnn`.`coupons` WHERE COMPANY_ID = ?";
             // להוטס
     public static final String getCouponById = "SELECT * FROM `couponnnn`.`coupons` WHERE ID=?";
     public static final String getOneCoupon = "SELECT * FROM `couponnnn`.`coupons` WHERE TITLE=? LIMIT 1";
@@ -38,8 +42,5 @@ public class Coupons {
     public static final String getAllCouponsUpToPriceAndCompany = "SELECT * FROM `couponnnn`.`coupons` WHERE COMPANY_ID = ? AND PRICE <= ?;";
     public static final String getAllCouponsByCategoryAndCompany = "SELECT * FROM `couponnnn`.`coupons` WHERE CATEGORY_ID = ? AND COMPANY_ID = ?";
     public static final String getExpiredCoupons = "SELECT * FROM `couponnnn`.`coupons` WHERE expiration_date <= CURDATE()";
-    public static final String deleteExpiredCoupons = "DELETE FROM `couponnnn`.`coupons` "
-            + "WHERE ID IN (SELECT ID FROM `couponnnn`.`coupons` WHERE expiration_date <= CURDATE())";
-
 
 }

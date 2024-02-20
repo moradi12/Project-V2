@@ -1,6 +1,9 @@
-import Initializer.*;
-import LoginManagerSyst.LoginManager;
 import Facade.ClientFacade;
+import Initializer.DatabaseInitializer;
+import Initializer.DatabasePrinter;
+import Initializer.InitializerCategory;
+import Initializer.SampleDataInitializer;
+import LoginManagerSyst.LoginManager;
 import Sql.ConnectionPool;
 import Sql.DButils;
 import beans.ClientType;
@@ -13,27 +16,17 @@ import java.sql.Statement;
 public class Tester {
     public static void main(String[] args) {
         try {
-            /**
-             * Create the 'couponnnn' database if it doesn't exist and use it.
-             */
+            // Create the 'couponnnn' database if it doesn't exist and use it.
             DButils.runQuery("CREATE DATABASE IF NOT EXISTS couponnnn");
             DButils.runQuery("USE couponnnn");
 
-            /**
-             * Establish a connection from a connection pool to interact with the database.
-             */
             ConnectionPool connectionPool = ConnectionPool.getInstance();
             Connection connection = connectionPool.getConnection();
 
             try {
-                // Initialize database schema
                 DatabaseInitializer.initialize(connection);
-                // Add sample data
                 SampleDataInitializer.initialize(connection);
-                // Initialize categories
                 InitializerCategory.initialize(connection);
-
-                // Print database contents
                 DatabasePrinter.printDatabaseContents(connection);
 
                 // Login example
@@ -46,7 +39,7 @@ public class Tester {
                 dropTable(connection, "name ");
             }
         } catch (SQLException | InterruptedException e) {
-            System.out.println("Error: " + e.getMessage());
+            System.err.println("Error: " + e.getMessage());
         }
     }
 
@@ -57,7 +50,7 @@ public class Tester {
             statement.executeUpdate(dropQuery);
             System.out.println("Table " + tableName + " dropped successfully.");
         } catch (SQLException e) {
-            System.out.println("Error dropping table " + tableName + ": " + e.getMessage());
+            System.err.println("Error dropping table " + tableName + ": " + e.getMessage());
         }
     }
 
@@ -77,10 +70,41 @@ public class Tester {
 
             // Log in as an administrator
             ClientFacade adminFacade = loginManager.login("admin@admin.com", "admin", ClientType.administrator);
+
+
+
+
             // Log out
             loginManager.logout(adminFacade);
         } catch (LoginException | SQLException | IllegalArgumentException e) {
-            System.out.println("Error: " + e.getMessage());
+            System.err.println("Error: " + e.getMessage());
         }
     }
+
+
+
+    //todo :
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
