@@ -17,6 +17,8 @@ public class Customer_SQL {
             "(`FIRST_NAME`, `LAST_NAME`, `EMAIL`, `PASSWORD`) " +
             "VALUES (?, ?, ?, ?);";
 
+
+
     public static final String addCustomerCouponRelation = "INSERT INTO `couponnnn`.`customers_vs_coupons` " +
             "(`CUSTOMER_ID`, `COUPON_ID`) " +
             "VALUES (?, ?);";

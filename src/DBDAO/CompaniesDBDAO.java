@@ -53,6 +53,9 @@ public class CompaniesDBDAO implements CompaniesDAO {
 
     @Override
     public void addCompany(Company company) {
+        if (isCompanyExists(company.getEmail(), company.getPassword())) {
+            throw new RuntimeException("Failed to add company to the database: Company already exists.");
+        }
         Map<Integer, Object> params = new HashMap<>();
         params.put(1, company.getName());
         params.put(2, company.getEmail());
@@ -62,12 +65,9 @@ public class CompaniesDBDAO implements CompaniesDAO {
         if (DButils.runQuery(Companies.addCompany, params)) {
             System.out.println("Company added successfully.");
         } else {
-            // Throw an exception if the query fails
             throw new RuntimeException("Failed to add company to the database");
         }
-        }
-
-    /**
+    }    /**
      * Updates an existing company in the database
      */
     @Override

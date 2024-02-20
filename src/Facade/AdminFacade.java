@@ -65,7 +65,7 @@ public class AdminFacade extends ClientFacade {
             throw new RuntimeException("Failed to delete coupons associated with company: " + e.getMessage());
         }
 
-        // Delete the company itself
+        // Delete the company
         try {
             companiesDBDAO.deleteCompany(companyId);
             System.out.println("Company deleted successfully.");

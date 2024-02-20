@@ -25,8 +25,10 @@ public class CustomerFacade extends ClientFacade {
     public boolean login(String email, String password) {
         if (customersDBDAO.isCustomerExists(email, password)) {
             customer = customersDBDAO.getOneCustomer(Integer.parseInt(email));
+            System.out.println("Login successful for email: " + email);
             return true;
         } else {
+            System.out.println("Login failed for email: " + email);
             return false;
         }
     }

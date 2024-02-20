@@ -42,5 +42,4 @@ public class Coupons {
     public static final String getAllCouponsUpToPriceAndCompany = "SELECT * FROM `couponnnn`.`coupons` WHERE COMPANY_ID = ? AND PRICE <= ?;";
     public static final String getAllCouponsByCategoryAndCompany = "SELECT * FROM `couponnnn`.`coupons` WHERE CATEGORY_ID = ? AND COMPANY_ID = ?";
     public static final String getExpiredCoupons = "SELECT * FROM `couponnnn`.`coupons` WHERE expiration_date <= CURDATE()";
-
 }

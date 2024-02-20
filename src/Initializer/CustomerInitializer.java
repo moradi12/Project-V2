@@ -9,30 +9,35 @@ import Sql.SqlCommands.Customer_SQL;
 
 public class CustomerInitializer {
     public static void initialize(Connection connection) throws SQLException {
-        addCustomers(connection);
+        createCustomersTable(connection); // Ensure the customers table exists
+        addCustomers(connection); // Add initial customers
     }
-/* הוספת לקוחות מרובים למסד הנתונים.*/
-    //עבור כל לקוח שיתווסף, ומעביר את פרטי //
+
+    // Create the customers table if it doesn't exist
+    private static void createCustomersTable(Connection connection) throws SQLException {
+        try (PreparedStatement createTableStatement = connection.prepareStatement(Customer_SQL.CREATE_TABLE_CUSTOMERS)) {
+            createTableStatement.executeUpdate();
+        }
+    }
+
+    // Add initial customers to the database
     private static void addCustomers(Connection connection) throws SQLException {
-        addCustomer(connection, "John Doe", "john@eavi.com", "password123");
-        addCustomer(connection, "Alice Smith", "alice@dora.com", "password456");
-        addCustomer(connection, "Dobigal", "DOBIGAL@dobi.com", "320932gg");
+        addCustomer(connection, "John", "Doe", "john@eavi.com", "password123");
+        addCustomer(connection, "Alice", "Smith", "alice@dora.com", "password456");
+        addCustomer(connection, "Dobigal", "", "DOBIGAL@dobi.com", "320932gg");
     }
 
-
-    ///שיטה זו אחראית להוספת לקוח בודד למסד הנתונים
-    // הוא לוקח את פרטי הלקוח (שם, מייל, סיסמה) כפרמטרים ומבצע פקודת SQL כדי להכניס את הלקוח למסד הנתונים
-    // . בנוסף הוא מאחזר את המזהה שנוצר של הלקוח החדש שהוכנס ומדפיס הודעת הצלחה אם היא מצליחה/
-
-    private static void addCustomer(Connection connection, String name, String email, String password) throws SQLException {
+    // Add a single customer to the database
+    private static void addCustomer(Connection connection, String firstName, String lastName, String email, String password) throws SQLException {
         String addCustomerSql = Customer_SQL.addCustomer;
-        try (PreparedStatement addCustomerStatement = connection.prepareStatement(addCustomerSql)) {
-            addCustomerStatement.setString(1, name);
-            addCustomerStatement.setString(2, email);
-            addCustomerStatement.setString(3, password);
+        try (PreparedStatement addCustomerStatement = connection.prepareStatement(addCustomerSql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+            addCustomerStatement.setString(1, firstName);
+            addCustomerStatement.setString(2, lastName);
+            addCustomerStatement.setString(3, email);
+            addCustomerStatement.setString(4, password);
             addCustomerStatement.executeUpdate();
 
-            int customerId = retrieveGeneratedId(connection);
+            int customerId = retrieveGeneratedId(addCustomerStatement);
             if (customerId != -1) {
                 System.out.println("New customer added with ID: " + customerId);
             } else {
@@ -40,20 +45,15 @@ public class CustomerInitializer {
             }
         }
     }
-    //////זה מכין שאילתתSQL
-    // כדי לשלוף את המזהה האחרון שהוכנס ממסד הנתונים.////
-    /// אם היה חוזר 1
-    ///מחזירה -1 כדי לציין שאחזור המזהה נכשל או שלא היו שורות בערכת התוצאות.
-    //
-    //שיטה זו מספקת דרך להשיג את המזהה של הרשומה האחרונה שהוכנסה במסד הנתונים,//
-    private static int retrieveGeneratedId(Connection connection) throws SQLException {
-        String getLastInsertIdSql = Customer_SQL.getLastInsertId;
-        try (PreparedStatement getLastInsertIdStatement = connection.prepareStatement(getLastInsertIdSql)) {
-            try (ResultSet resultSet = getLastInsertIdStatement.executeQuery()) {
-                if (resultSet.next()) {
-                    return resultSet.getInt(1);
-                } else {
-                    return -1;
-                }
-            }}
-    }}
+
+    // Retrieve the generated ID of the last inserted customer
+    private static int retrieveGeneratedId(PreparedStatement statement) throws SQLException {
+        try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+            if (generatedKeys.next()) {
+                return generatedKeys.getInt(1);
+            } else {
+                return -1;
+            }
+        }
+    }
+}

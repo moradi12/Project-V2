@@ -30,9 +30,10 @@ public class CouponsDBDAO implements CouponsDAO {
         params.put(3, coupon.getTitle());
         params.put(4, coupon.getDescription());
         params.put(5, (coupon.getStartDate().getTime()));
-        params.put(6, coupon.getAmount());
-        params.put(7, coupon.getPrice());
-        params.put(8, coupon.getImage());
+        params.put(6, (coupon.getEndDate().getTime()));
+        params.put(7, coupon.getAmount());
+        params.put(8, coupon.getPrice());
+        params.put(9, coupon.getImage());
 
         boolean success = DButils.runQuery(sql, params);
 
@@ -43,6 +44,7 @@ public class CouponsDBDAO implements CouponsDAO {
         }
 
     }
+
 
     @Override
     public void updateCoupon(Coupon coupon) {

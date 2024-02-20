@@ -1,16 +1,14 @@
 package beans;
 
-
 import java.util.Date;
 
+// A friendly representation of a coupon
 public class Coupon {
-
 
     private final int id;
     private final int companyId;
     private final Category category;
     private String title;
-
     private String description;
     private java.sql.Date startDate;
     private java.sql.Date endDate;
@@ -20,17 +18,16 @@ public class Coupon {
 
     /**
      * Constructs a coupon with specified attributes.
-     *
-     * @param id          the ID of the coupon
-     * @param companyId   the ID of the company associated with the coupon
-     * @param category    the category of the coupon
-     * @param title       the title of the coupon
-     * @param description the description of the coupon
-     * @param startDate   the start date of the coupon validity
-     * @param endDate     the end date of the coupon validity
-     * @param amount      the amount of the coupon available
-     * @param price       the price of the coupon
-     * @param image       the image URL associated with the coupon
+     * @param id          The ID of the coupon
+     * @param companyId   The ID of the associated company
+     * @param category    The category of the coupon
+     * @param title       The title of the coupon
+     * @param description The description of the coupon
+     * @param startDate   The start date of the coupon's validity
+     * @param endDate     The end date of the coupon's validity
+     * @param amount      The available quantity of the coupon
+     * @param price       The price of the coupon
+     * @param image       The image URL associated with the coupon
      */
     public Coupon(int id, int companyId, Category category, String title, String description, java.sql.Date startDate, java.sql.Date endDate, Integer amount, Double price, String image) {
         this.id = id;
@@ -129,6 +126,4 @@ public class Coupon {
                 ", image='" + image + '\'' +
                 '}';
     }
-
 }
-

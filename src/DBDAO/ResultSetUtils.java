@@ -61,7 +61,7 @@ public class ResultSetUtils {
 
     /**
      * Maps a ResultSet to a Customer object
-     *
+
      * @param resultSet The ResultSet containing customer data
      * @return The mapped Customer object
      */

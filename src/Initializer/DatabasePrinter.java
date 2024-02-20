@@ -15,6 +15,8 @@ public class DatabasePrinter {
         printCategories(connection);
         printCompanies(connection);
         printCoupons(connection);
+        printCustomers(connection);
+        printDatabaseContents(connection);
 
     }
 
